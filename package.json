@@ -1,0 +1,38 @@
+{
+  "name": "isoreactiflux",
+  "version": "0.0.1",
+  "description": "Boilerplate project for isomorphic react + flux + react-router",
+  "engine": "node 4.2.1",
+  "main": "src/server.js",
+  "scripts": {
+    "build": "webpack",
+    "dev-server": "export NODE_PATH=$NODE_PATH:./src/; node_modules/babel-cli/bin/babel-node.js src/server.js",
+    "dev": "npm run build && npm run dev-server"
+  },
+  "author": "Danny Bowman",
+  "devDependencies": {
+    "autoprefixer-loader": "^3.1.0",
+    "babel-cli": "^6.3.17",
+    "babel-core": "^6.3.17",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "css-loader": "^0.23.0",
+    "events": "^1.1.0",
+    "react-addons-update": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "style-loader": "^0.13.0",
+    "superagent": "^1.5.0",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0"
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "history": "^1.13.1",
+    "jade": "^1.11.0",
+    "lodash": "^3.10.1",
+    "react": "^0.14.3",
+    "react-router": "^1.0.2"
+  }
+}
+
