@@ -6,10 +6,7 @@ import update from 'react-addons-update';
 export default class Store extends EventEmitter {
   constructor() {
     super();
-    this.state = {
-      ids: [],
-      thingsById: {},
-    };
+    this.state = {};
   }
 
   getState() {

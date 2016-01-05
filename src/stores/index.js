@@ -1,7 +1,7 @@
-import Store from 'stores/base';
+import ThingStore from 'stores/things';
 
 
-let store = new Store();
+let store = new ThingStore();
 
 function get() {
   return store;
