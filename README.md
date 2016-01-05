@@ -25,6 +25,7 @@ A simple boilerplate for isomorphic/universal react + flux.
 * Routing
 
     * A single file defines routes and their action dependencies for both server and client.
+    * Action dependencies reflect the routing hierarchy (a child route will ensure that both its and its parents' dependencies are present).
 
 * Caching
 
@@ -72,4 +73,21 @@ A simple boilerplate for isomorphic/universal react + flux.
 
 * [react-isomorphic-boilerplate](http://jmfurlott.com/tutorial-setting-up-a-simple-isomorphic-react-app/)
 * [react-router-mega-demo](https://github.com/rackt/react-router-mega-demo)
+
+## TODOs
+
+* Routing
+
+    Add a way to define blocking actions on routes.  
+    i.e. actions that must complete *before* the route component is rendered.  
+    Add a way to define error handling for route dependencies.  
+    In general, this would be for client-side 404-type situations so that
+    a 404 page can be shown without a flicker.
+
+* Caching
+
+    Implement caching in the Store and have Actions check the cache first.
+
+* Implement Styles
+* Implement Tests
 
