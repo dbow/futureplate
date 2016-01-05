@@ -3,27 +3,16 @@ import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 
 import store from 'stores/index';
-import routes, { bindActions } from 'routes';
+import routes from 'routes';
+import { getDependencies } from 'utils/index';
 
 
 // Populate store with serialized data from server.
 store().initialize(window.data);
 
-// TODO(dbow): Implement a cache in the store so we know when data is already
-// present without this firstRender thing.
-// This also doesn't work when there are multiple routes with actions...
-let firstRender = true;
-
+// Get route dependencies whenever a route component is rendered.
 const routeHandler = (Component, props) => {
-  let actions = props.route.actions;
-  if (firstRender) {
-    firstRender = false;
-  } else if (actions) {
-    actions = bindActions([props.route], store(), props.params);
-
-    // TODO(dbow): Add a blocking={actions} option?
-    Promise.all(actions);
-  }
+  getDependencies([props.route], store(), props.params);
   return <Component {...props} />
 }
 

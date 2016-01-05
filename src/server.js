@@ -4,10 +4,11 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 
-import routes, { bindActions } from 'routes';
+import routes from 'routes';
 import Store from 'stores/base';
 import { setStore } from 'stores/index';
 import { setBaseUrl } from 'utils/api';
+import { getDependencies } from 'utils/index';
 
 
 const app = express();
@@ -26,23 +27,28 @@ setBaseUrl('http://localhost:3000/api/');
 
 app.get('/*', function (req, res) {
   const location = req.url;
-  match({
-    routes,
-    location,
-  }, (error, redirect, renderProps) => {
+  match({ routes, location }, (error, redirect, renderProps) => {
     if (error) {
       res.status(500).send(error.message);
+
     } else if (redirect) {
       res.redirect(302, redirect.pathname + redirect.search);
+
     } else if (renderProps) {
       const store = new Store();
-      const actions = bindActions(renderProps.routes, store, renderProps.params);
-      Promise.all(actions).then((responses) => {
-        setStore(store);
-        const content = renderToString(<RouterContext {...renderProps} />);
-        const data = store.serialize();
-        res.render('index', { content, data });
-      });
+      const dependencies = getDependencies(renderProps.routes,
+                                           store,
+                                           renderProps.params);
+      Promise.all(dependencies)
+        .then(() => {
+          setStore(store);
+          const content = renderToString(<RouterContext {...renderProps} />);
+          const data = store.serialize();
+          res.render('index', { content, data });
+        })
+        .catch((error) => {
+          res.status(404).send('Not found');
+        });
     } else {
       res.status(404).send('Not found');
     }

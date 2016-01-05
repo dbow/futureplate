@@ -4,7 +4,6 @@ import * as api from 'utils/api';
 export function getIds(store) {
   const promise = api.get('things').then((response) => {
     store.setState(response);
-    return response;
   });
   return promise;
 }
@@ -15,7 +14,6 @@ export function getThing(store, params) {
     let thingsById = store.getState().thingsById || {};
     thingsById[id] = response;
     store.setState({thingsById});
-    return response;
   });
   return promise;
 }
