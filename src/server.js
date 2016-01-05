@@ -2,7 +2,7 @@ import express from 'express';
 import _ from 'lodash';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { match, RoutingContext } from 'react-router';
+import { match, RouterContext } from 'react-router';
 
 import routes, { bindActions } from 'routes';
 import Store from 'stores/base';
@@ -39,7 +39,7 @@ app.get('/*', function (req, res) {
       const actions = bindActions(renderProps.routes, store, renderProps.params);
       Promise.all(actions).then((responses) => {
         setStore(store);
-        const content = renderToString(<RoutingContext {...renderProps} />);
+        const content = renderToString(<RouterContext {...renderProps} />);
         const data = store.serialize();
         res.render('index', { content, data });
       });
