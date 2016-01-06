@@ -5,8 +5,7 @@ import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 
 import routes from 'routes';
-import ThingStore from 'stores/things';
-import { setStore } from 'stores/index';
+import { IndexStore, setStore } from 'stores/index';
 import { setBaseUrl } from 'utils/api';
 import { getDependencies } from 'utils/index';
 
@@ -35,7 +34,7 @@ app.get('/*', function (req, res) {
       res.redirect(302, redirect.pathname + redirect.search);
 
     } else if (renderProps) {
-      const store = new ThingStore();
+      const store = new IndexStore();
       const dependencies = getDependencies(renderProps.routes,
                                            store,
                                            renderProps.params);

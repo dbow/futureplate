@@ -4,26 +4,29 @@ import update from 'react-addons-update';
 
 
 export default class Store extends EventEmitter {
-  constructor() {
+  constructor(key) {
     super();
-    this.state = {};
+    this.key = key;
+    this.state = null;
+  }
+
+  initialize(data) {
+    this.state = data[this.key];
   }
 
   getState() {
     return _.cloneDeep(this.state);
   }
 
-  initialize(data) {
-    this.state = update(this.state, {$merge: data});
+  setState(data) {
+    this.state = this.state ? update(this.state, {$merge: data}) : data;
+    this.emit('update');
   }
 
   serialize() {
-    return this.getState();
-  }
-
-  setState(data) {
-    this.state = update(this.state, {$merge: data});
-    this.emit('update');
+    return {
+      [this.key]: this.getState(),
+    };
   }
 }
 
