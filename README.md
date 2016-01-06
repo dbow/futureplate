@@ -84,10 +84,6 @@ A simple boilerplate for isomorphic/universal react + flux.
     In general, this would be for client-side 404-type situations so that
     a 404 page can be shown without a flicker.
 
-* Caching
-
-    Implement caching in the Store and have Actions check the cache first.
-
 * Implement Styles
 * Implement Tests
 
