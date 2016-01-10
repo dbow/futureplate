@@ -4,7 +4,7 @@ import { Route, IndexRoute } from 'react-router';
 
 import App from 'components/app.jsx';
 import Dashboard from 'components/dashboard.jsx';
-import About from 'components/about.jsx';
+import About from 'components/about/about.jsx';
 import Things from 'components/things.jsx';
 import ListOfThings from 'components/list.jsx';
 import Thing from 'components/thing.jsx';

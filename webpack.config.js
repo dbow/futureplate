@@ -1,26 +1,28 @@
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
 
 // TODO(dbow): Re-add hotmodulereplacement.
 const config = {
+
   entry: [
     // 'webpack-dev-server/client?http://localhost:8080',
     // 'webpack/hot/only-dev-server',
     './src/client',
   ],
+
   output: {
     path: path.join(__dirname, 'build'),
-    filename: 'app.js',
+    filename: '[name].js',
+    chunkFilename: '[id].chunk.js',
     publicPath: '/build',
   },
-  plugins: [
-    // new webpack.HotModuleReplacementPlugin(),
-    // new webpack.NoErrorsPlugin(),
-  ],
+
   resolve: {
     root:  path.join(__dirname, 'src'),
   },
+
   module: {
     loaders: [
       {
@@ -33,10 +35,16 @@ const config = {
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader!autoprefixer-loader',
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!autoprefixer-loader'),
       }
     ]
-  }
+  },
+
+  plugins: [
+    new ExtractTextPlugin('[name].css', { allChunks: true }),
+    // new webpack.HotModuleReplacementPlugin(),
+    // new webpack.NoErrorsPlugin(),
+  ],
 };
 
 
