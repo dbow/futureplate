@@ -1,9 +1,9 @@
 {
-  "name": "isoreactiflux",
+  "name": "futureplate",
   "version": "0.0.1",
-  "description": "Boilerplate project for isomorphic react + flux + react-router",
+  "description": "Boilerplate project for future-facing tech: universal react + flux + react-router + css modules",
   "engine": "node 4.2.1",
-  "main": "src/server.js",
+  "main": "src/index.js",
   "scripts": {
     "build": "webpack",
     "dev-server": "export NODE_PATH=$NODE_PATH:./src/; node_modules/babel-cli/bin/babel-node.js src/index.js",

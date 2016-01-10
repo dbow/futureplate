@@ -1,6 +1,6 @@
-# isoReacTiFlux
+# FuturePlate
 
-A simple boilerplate for isomorphic/universal react + flux.
+A simple boilerplate for universal react + flux + react-router + css modules.
 
 ## goals
 
@@ -18,7 +18,7 @@ A simple boilerplate for isomorphic/universal react + flux.
     * Actions update the `state` of the Stores.
     * Components re-render whenever Store `state` changes.
 
-* Isomorphic/Universal
+* Universal
 
     * App renders content on the server before client takes over.
 
