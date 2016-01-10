@@ -6,7 +6,7 @@
   "main": "src/server.js",
   "scripts": {
     "build": "webpack",
-    "dev-server": "export NODE_PATH=$NODE_PATH:./src/; node_modules/babel-cli/bin/babel-node.js src/server.js",
+    "dev-server": "export NODE_PATH=$NODE_PATH:./src/; node_modules/babel-cli/bin/babel-node.js src/index.js",
     "dev": "npm run build && npm run dev-server"
   },
   "author": "Danny Bowman",

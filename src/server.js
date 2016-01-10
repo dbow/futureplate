@@ -1,8 +1,3 @@
-import hook from 'css-modules-require-hook';
-hook({
-  generateScopedName: '[name]__[local]___[hash:base64:5]',
-});
-
 import express from 'express';
 import _ from 'lodash';
 import React from 'react';
