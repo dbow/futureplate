@@ -123,7 +123,7 @@ const server = {
   externals: function(context, request, callback) {
     if (request.indexOf('src') !== 0 &&
         request.indexOf('.') !== 0) {
-      return callback(null, request);
+      return callback(null, 'commonjs ' + request);
     }
     callback();
   },
@@ -136,10 +136,11 @@ const server = {
     libraryTarget: 'commonjs2',
   },
 
+  // Node variables:
+  //     http://jlongster.com/Backend-Apps-with-Webpack--Part-II#Node-Variables
   node: {
     __filename: true,
     __dirname: true,
-    console: true
   },
 
   module: {
@@ -159,7 +160,7 @@ const server = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        API_URL: '"http://localhost:3000/api/"',
+        API_URL: JSON.stringify('http://localhost:3000/api/'),
       },
     }),
   ],

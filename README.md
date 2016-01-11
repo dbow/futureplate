@@ -36,11 +36,10 @@ A simple boilerplate for universal react + flux + react-router + css modules.
 
     * Just plain CSS.
     * Preprocessors, etc. can be added easily as desired.
-    * CSS Modules (nice compromise between CSS and inline styles).
+    * CSS Modules provide modular (component-scoped classes) and reusable (composable) CSS that brings order to the global scope and explicitly ties CSS into the components hierarchy while still just being simple CSS files.
 
 * Development flow
 
-    * Styles hot reload on change during development.
     * All JS uses ES6 syntax.
 
 * Tests
@@ -50,7 +49,6 @@ A simple boilerplate for universal react + flux + react-router + css modules.
 ## not goals
 
 * Functional stores (reducers, like redux)
-* Hot reloading in JS
 * Store-specific re-renders
 * UI tests
 
@@ -74,9 +72,17 @@ A simple boilerplate for universal react + flux + react-router + css modules.
 
 * [react-isomorphic-boilerplate](http://jmfurlott.com/tutorial-setting-up-a-simple-isomorphic-react-app/)
 * [react-router-mega-demo](https://github.com/rackt/react-router-mega-demo)
+* [Handcrafting an isomorphic redux application with love](https://medium.com/front-end-developers/handcrafting-an-isomorphic-redux-application-with-love-40ada4468af4#.n33zx5ee0)
+* [book-shelf](https://github.com/jarsbe/book-shelf/tree/isomorphic)
+* [isomorphic500](https://github.com/gpbl/isomorphic500)
+* [Backend Apps with Webpack](http://jlongster.com/Backend-Apps-with-Webpack--Part-I)
+* [react-howto](https://github.com/petehunt/react-howto)
+* [webpack-howto](https://github.com/petehunt/webpack-howto)
 
 ## TODOs
 
+* Lazy Routes
+* Hot reload in dev mode
 * Routing
 
     Add a way to define blocking actions on routes.  
@@ -85,5 +91,5 @@ A simple boilerplate for universal react + flux + react-router + css modules.
     In general, this would be for client-side 404-type situations so that
     a 404 page can be shown without a flicker.
 
-* Implement Tests
+* Tests
 
