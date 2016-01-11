@@ -1,4 +1,4 @@
-import * as api from 'utils/api';
+import * as api from 'src/utils/api';
 
 
 export function getIds(store) {

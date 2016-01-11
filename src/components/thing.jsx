@@ -1,13 +1,12 @@
 import React from 'react';
 
-import store from 'stores/index';
-import { subscribeToStore } from 'utils/wrappers';
+import { subscribeToStore } from 'src/utils/wrappers';
 
 
 class Thing extends React.Component {
   render() {
     const id = parseInt(this.props.params.id, 10);
-    const things = store().stores.things.getState();
+    const things = this.context.store.stores.things.getState();
     const thing = things && things[id] || {};
     return (
       <div className="thing">

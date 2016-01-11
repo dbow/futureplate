@@ -1,16 +1,12 @@
 import request from 'superagent';
 
 
-let _baseUrl = '/api/';
-
-export function setBaseUrl(baseUrl) {
-  _baseUrl = baseUrl;
-}
+const API_URL = process.env.API_URL || '/api/';
 
 export function get(path, query) {
   const promise = new Promise((resolve, reject) => {
     request
-      .get(`${_baseUrl}${path}`)
+      .get(`${API_URL}${path}`)
       .query(query)
       .end((error, response) => {
         if (error) {

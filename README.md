@@ -36,6 +36,7 @@ A simple boilerplate for universal react + flux + react-router + css modules.
 
     * Just plain CSS.
     * Preprocessors, etc. can be added easily as desired.
+    * CSS Modules (nice compromise between CSS and inline styles).
 
 * Development flow
 
@@ -84,6 +85,5 @@ A simple boilerplate for universal react + flux + react-router + css modules.
     In general, this would be for client-side 404-type situations so that
     a 404 page can be shown without a flicker.
 
-* Implement Styles
 * Implement Tests
 

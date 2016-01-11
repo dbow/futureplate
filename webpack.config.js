@@ -1,52 +1,176 @@
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+/**
+ * Run `webpack` with NODE_ENV=development to do a dev build. Defaults to
+ * production.
+ */
+const DEVELOPMENT = process.env.NODE_ENV === 'development';
 
 
-// TODO(dbow): Re-add hotmodulereplacement.
-const config = {
+/**
+ * Path configuration.
+ */
+const OUTPUT_DIR = path.join(__dirname, 'build');
+const RESOLVE = {
+  root: __dirname
+};
 
-  entry: [
-    // 'webpack-dev-server/client?http://localhost:8080',
-    // 'webpack/hot/only-dev-server',
-    './src/client',
-  ],
+
+/**
+ * JS loader configuration.
+ *
+ * Compile with Babel and ignore node_modules.
+ */
+const JS_LOADER = {
+  test: /\.jsx?$/,
+  loader: 'babel-loader',
+  exclude: /node_modules/,
+  query: {
+    presets: ['es2015', 'react'],
+  },
+};
+
+
+/**
+ * CSS loader configuration.
+ */
+
+// The pattern to use for the CSS modules generated classnames.
+const CSS_CLASS_PATTERN = '[name]__[local]___[hash:base64:5]';
+// Parameters for css-loader - sets up CSS modules and the classname pattern.
+const CSS_LOADER_PARAMS = '?modules&localIdentName=' + CSS_CLASS_PATTERN;
+
+/**
+ * The different handlers for CSS requires.
+ * Usage varies based on target (client vs. server) and environment
+ * (development vs. production).
+ */
+const CSS_LOADERS = {
+  // Extract the CSS module classnames only.
+  CLASSNAMES: 'css-loader/locals' + CSS_LOADER_PARAMS,
+  // Compile the CSS to a separate file.
+  FILE: ExtractTextPlugin.extract('style-loader',
+      'css-loader' + CSS_LOADER_PARAMS + '&importLoaders=1!autoprefixer-loader'),
+  // Add styles via <style> tags.
+  STYLETAGS: 'style-loader!css-loader' + CSS_LOADER_PARAMS,
+};
+
+
+/**
+ * Client configuration.
+ *
+ * Generates client.js file served to the browser.
+ *
+ * In production, CSS just returns classnames, as all the CSS will be served
+ * separately in the main.css file.
+ *
+ * In development, CSS is added via <style> tags on demand.
+ */
+const client = {
+
+  devtool: DEVELOPMENT ? 'sourcemaps' : undefined,
+
+  entry: './src/client',
 
   output: {
-    path: path.join(__dirname, 'build'),
-    filename: '[name].js',
-    chunkFilename: '[id].chunk.js',
-    publicPath: '/build',
+    path: OUTPUT_DIR,
+    filename: 'client.js',
   },
 
-  resolve: {
-    root:  path.join(__dirname, 'src'),
+  resolve: RESOLVE,
+
+  module: {
+    loaders: [
+
+      JS_LOADER,
+
+      {
+        test: /\.css/,
+        exclude: /node_modules/,
+        loader: DEVELOPMENT ? CSS_LOADERS.STYLETAGS : CSS_LOADERS.CLASSNAMES,
+      },
+
+    ]
+  }
+};
+
+
+/**
+ * Server configuration.
+ *
+ * Generates the server.js file used to render markup on the server.
+ *
+ * In production, CSS is extracted into a separate bundle file.
+ *
+ * In development, CSS returns classnames (the CSS is added on the client via
+ * <style> tags).
+ */
+const server = {
+
+  devtool: DEVELOPMENT ? 'sourcemaps' : undefined,
+
+  entry: './src/routes.js',
+
+  target: 'node',
+
+  /**
+   * Only bundle the source code (imports beginning in 'src' or relative
+   * imports e.g. ./somefile). All other imports are treated as externals.
+   * https://webpack.github.io/docs/configuration.html#externals
+   */
+  externals: function(context, request, callback) {
+    if (request.indexOf('src') !== 0 &&
+        request.indexOf('.') !== 0) {
+      return callback(null, request);
+    }
+    callback();
+  },
+
+  resolve: RESOLVE,
+
+  output: {
+    path: OUTPUT_DIR,
+    filename: 'server.js',
+    libraryTarget: 'commonjs2',
+  },
+
+  node: {
+    __filename: true,
+    __dirname: true,
+    console: true
   },
 
   module: {
     loaders: [
+
+      JS_LOADER,
+
       {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
+        test: /\.css/,
         exclude: /node_modules/,
-        query: {
-          presets: ['es2015', 'react'],
-        },
+        loader: DEVELOPMENT ? CSS_LOADERS.CLASSNAMES : CSS_LOADERS.FILE,
       },
-      {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!autoprefixer-loader'),
-      }
+
     ]
   },
 
   plugins: [
-    new ExtractTextPlugin('[name].css', { allChunks: true }),
-    // new webpack.HotModuleReplacementPlugin(),
-    // new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        API_URL: '"http://localhost:3000/api/"',
+      },
+    }),
   ],
 };
 
+if (!DEVELOPMENT) {
+  server.plugins.push(new ExtractTextPlugin('main.css', {
+    allChunks: true
+  }));
+}
 
-module.exports = config;
+
+module.exports = [client, server];
 

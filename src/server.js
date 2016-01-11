@@ -4,11 +4,13 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 
-import routes from 'routes';
-import { IndexStore, setStore } from 'stores/index';
-import { setBaseUrl } from 'utils/api';
-import { getDependencies } from 'utils/index';
+import routes from '../build/server';
+import IndexStore from './stores/index';
+import { getDependencies } from './utils/index';
+import { FluxContext } from './utils/wrappers';
 
+
+const ENV = process.env.NODE_ENV || 'development';
 
 const app = express();
 
@@ -19,10 +21,8 @@ app.use(express.static('build'));
 
 // Mock API endpoints!
 // TODO(dbow): Remove from anything real.
-import mockApi from 'mock-api';
+import mockApi from './mock-api';
 app.use('/api', mockApi);
-
-setBaseUrl('http://localhost:3000/api/');
 
 app.get('/*', function (req, res) {
   const location = req.url;
@@ -40,15 +40,24 @@ app.get('/*', function (req, res) {
                                            renderProps.params);
       Promise.all(dependencies)
         .then(() => {
-          setStore(store);
-          const content = renderToString(<RouterContext {...renderProps} />);
+          const content = renderToString((
+            <FluxContext store={store}>
+              <RouterContext {...renderProps} />
+            </FluxContext>
+          ));
           const data = store.serialize();
-          res.render('index', { content, data });
+          res.render('index', {
+            content,
+            data,
+            development: ENV === 'development',
+          });
         })
         .catch((error) => {
+          console.log(error);
           res.status(404).send('Not found');
         });
     } else {
+      console.log(error);
       res.status(404).send('Not found');
     }
   });

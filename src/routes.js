@@ -2,14 +2,14 @@ import _ from 'lodash';
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
-import App from 'components/app.jsx';
-import Dashboard from 'components/dashboard.jsx';
-import About from 'components/about/about.jsx';
-import Things from 'components/things.jsx';
-import ListOfThings from 'components/list.jsx';
-import Thing from 'components/thing.jsx';
+import App from 'src/components/app.jsx';
+import Dashboard from 'src/components/dashboard.jsx';
+import About from 'src/components/about/about.jsx';
+import Things from 'src/components/things.jsx';
+import ListOfThings from 'src/components/list.jsx';
+import Thing from 'src/components/thing.jsx';
 
-import * as actions from 'actions/index';
+import * as actions from 'src/actions/index';
 
 
 export default (

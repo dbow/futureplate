@@ -2,13 +2,13 @@ import _ from 'lodash';
 import EventEmitter from 'events';
 import update from 'react-addons-update';
 
-import IdStore from 'stores/ids';
-import ThingStore from 'stores/things';
+import IdStore from './ids';
+import ThingStore from './things';
 
-import Cache from 'stores/cache';
+import Cache from './cache';
 
 
-export class IndexStore extends EventEmitter {
+class IndexStore extends EventEmitter {
   constructor() {
     super();
 
@@ -46,15 +46,6 @@ export class IndexStore extends EventEmitter {
   }
 }
 
-let store = new IndexStore();
 
-function get() {
-  return store;
-}
-
-export function setStore(newStore) {
-  store = newStore;
-}
-
-export default get;
+export default IndexStore;
 

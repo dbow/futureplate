@@ -1,4 +1,4 @@
-import Store from 'stores/base';
+import Store from './base';
 
 export default class IdStore extends Store {
   constructor() {

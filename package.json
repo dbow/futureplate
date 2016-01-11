@@ -5,9 +5,10 @@
   "engine": "node 4.2.1",
   "main": "src/index.js",
   "scripts": {
+    "dev-build": "NODE_ENV=development webpack -w",
+    "dev": "NODE_ENV=development node_modules/nodemon/bin/nodemon.js src/index.js",
     "build": "webpack",
-    "dev-server": "export NODE_PATH=$NODE_PATH:./src/; node_modules/babel-cli/bin/babel-node.js src/index.js",
-    "dev": "npm run build && npm run dev-server"
+    "start": "npm run build && node src/index.js"
   },
   "author": "Danny Bowman",
   "devDependencies": {
@@ -28,7 +29,7 @@
     "webpack-dev-server": "^1.14.0"
   },
   "dependencies": {
-    "css-modules-require-hook": "^2.1.0",
+    "babel-register": "^6.3.13",
     "express": "^4.13.3",
     "jade": "^1.11.0",
     "lodash": "^3.10.1",
@@ -36,4 +37,3 @@
     "react-router": "^2.0.0-rc4"
   }
 }
-
