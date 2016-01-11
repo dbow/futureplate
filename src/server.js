@@ -10,7 +10,7 @@ import { getDependencies } from './utils/index';
 import { FluxContext } from './utils/wrappers';
 
 
-const ENV = process.env.NODE_ENV || 'development';
+const ENV = process.env.NODE_ENV || 'production';
 
 const app = express();
 
