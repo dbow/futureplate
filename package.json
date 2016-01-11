@@ -5,9 +5,10 @@
   "engine": "node 4.2.1",
   "main": "src/index.js",
   "scripts": {
-    "dev-build": "NODE_ENV=development webpack -w",
+    "clean": "rm -rf build/*",
+    "dev-build": "npm run clean && NODE_ENV=development webpack -w",
     "dev": "NODE_ENV=development node_modules/nodemon/bin/nodemon.js src/index.js",
-    "build": "webpack",
+    "build": "npm run clean && webpack",
     "start": "npm run build && node src/index.js"
   },
   "author": "Danny Bowman",
