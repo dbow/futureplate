@@ -95,6 +95,8 @@ A simple boilerplate for universal react + flux + react-router + css modules.
 * [Backend Apps with Webpack](http://jlongster.com/Backend-Apps-with-Webpack--Part-I)
 * [react-howto](https://github.com/petehunt/react-howto)
 * [webpack-howto](https://github.com/petehunt/webpack-howto)
+* [react-transform-boilerplate](https://github.com/gaearon/react-transform-boilerplate)
+* [The ultimate Webpack setup](http://www.christianalfoni.com/articles/2015_04_19_The-ultimate-webpack-setup)
 
 ## TODOs
 
