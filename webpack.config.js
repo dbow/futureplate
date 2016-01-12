@@ -7,6 +7,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
  * production.
  */
 const DEVELOPMENT = process.env.NODE_ENV === 'development';
+const HMR = process.env.BABEL_ENV === 'HMR';
 
 
 /**
@@ -72,11 +73,16 @@ const client = {
 
   devtool: DEVELOPMENT ? 'sourcemaps' : undefined,
 
-  entry: './src/client',
+  entry: HMR ? [
+    './src/client',
+    // Hot reloading
+    'webpack-hot-middleware/client',
+  ] : './src/client',
 
   output: {
     path: OUTPUT_DIR,
     filename: 'client.js',
+    publicPath: '/build/',
   },
 
   resolve: RESOLVE,
@@ -93,7 +99,13 @@ const client = {
       },
 
     ]
-  }
+  },
+
+  plugins: HMR ? [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ] : [],
 };
 
 
