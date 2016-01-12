@@ -41,6 +41,8 @@ A simple boilerplate for universal react + flux + react-router + css modules.
 * Development flow
 
     * All JS uses ES6 syntax.
+    * Re-compile bundle and re-start server on any change.
+    * Optional hot reloading for React components and CSS modules.
 
 * Tests
 
@@ -56,7 +58,22 @@ A simple boilerplate for universal react + flux + react-router + css modules.
 
 * **requires node v4! make sure your environment is up to date**
 * `npm install`
-* `npm run dev` to bundle the assets and start the web server at http://localhost:3000/
+* `npm run start`
+
+    * Compiles assets for production.
+    * Runs web server in production mode.
+    * CSS extracted to a static file (main.css).
+
+* `npm run dev-build` && `npm run dev` (two terminals)
+
+    * Compiles assets for development and watches to re-compile
+    * Runs web server via nodemon to re-start on changes.
+    * Must be done in two terminals since `dev-build` runs webpack in watch mode
+    * CSS loaded on the client via `<style>` tags
+
+* `npm run hot`
+
+    * Compiles assets for development and runs web server in hot module replacement mode.
 
 ## technologies
 
@@ -82,7 +99,6 @@ A simple boilerplate for universal react + flux + react-router + css modules.
 ## TODOs
 
 * Lazy Routes
-* Hot reload in dev mode
 * Routing
 
     Add a way to define blocking actions on routes.  
