@@ -1,3 +1,5 @@
+import styles from './list.css';
+
 import React from 'react';
 import { Link } from 'react-router';
 
@@ -8,10 +10,10 @@ class List extends React.Component {
   render() {
     const things = this.context.store.stores.ids.getState() || [];
     return (
-      <div className="list">
+      <div>
         { things.map(thing => (
           <li key={thing}>
-            <Link to={`list/thing/${thing}`}>{thing}</Link>
+            <Link className={styles.link} to={`list/thing/${thing}`}>{thing}</Link>
           </li>
         )) }
         List

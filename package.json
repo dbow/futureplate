@@ -24,6 +24,7 @@
     "events": "^1.1.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "nodemon": "^1.8.1",
+    "null-loader": "^0.1.1",
     "react-addons-update": "^0.14.3",
     "style-loader": "^0.13.0",
     "superagent": "^1.5.0",
