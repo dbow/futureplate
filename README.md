@@ -1,18 +1,18 @@
 # futureplate
 
-A simple boilerplate for
+#### a simple-ish boilerplate for
 
-\+ **universal react**
+\+ **[universal](https://medium.com/@mjackson/universal-javascript-4761051b7ae9#.3br8rkdud) [react](https://facebook.github.io/react/)**
 
-\+ **flux**
+\+ **([redux](http://redux.js.org/)-y) [flux](https://facebook.github.io/flux/)**
 
-\+ **react-router**
+\+ **[react-router](https://github.com/rackt/react-router)**
 
-\+ **css modules**
+\+ **[css modules](http://glenmaddern.com/articles/css-modules)**
 
-\+ **code splitting**
+\+ **[code splitting](https://webpack.github.io/docs/code-splitting.html)**
 
-## goals
+## Goals
 
 * **Simple and Clear**
 
@@ -51,14 +51,14 @@ A simple boilerplate for
     * Hot Module Replacement Mode: Optional hot reloading for React components and CSS modules.
 
 
-## not goals
+## !Goals
 
 * Functional stores (reducers, like redux).
 * Store-specific re-renders (re-render triggered on entire component tree on any store update).
 * UI tests
 
 
-## setup
+## Setup
 
 * **requires node v4! make sure your environment is up to date**
 * `npm install`
@@ -79,7 +79,7 @@ A simple boilerplate for
 
     * Compiles assets for development and runs web server in hot module replacement mode.
 
-## core technologies
+## Core Technologies
 
 * [express](http://expressjs.com/en/index.html) for the web server.
 * [react](https://facebook.github.io/react/) for component rendering.
@@ -88,27 +88,24 @@ A simple boilerplate for
 * [babel](https://babeljs.io/) to allow for ES6 syntax.
 * [superagent](http://visionmedia.github.io/superagent/) for client and node AJAX.
 
-## honorable mentions
+## Honorable Mentions
 
 * [nodemon](https://github.com/remy/nodemon) to restart web server in dev mode after re-compiling bundles.
-
-Store:
-* [react-addons-update](https://facebook.github.io/react/docs/update.html) to implement immutable updates in the `Store`.
-
-CSS processing:
-* [autoprefixer](https://github.com/postcss/autoprefixer) to add browser prefixes to CSS as needed.
-* [css-loader](https://github.com/webpack/css-loader) to provide CSS modules functionality via webpack.
-* [style-loader](https://github.com/webpack/style-loader) to add style tags for CSS on demand in the browser.
-* [extract-text-webpack-plugin](https://github.com/webpack/extract-text-webpack-plugin) to compile all CSS into a separate file in production.
-* [null-loader](https://github.com/webpack/null-loader) to ignore global CSS in the server render bundle.
-
-Hot Module Replacement:
-* [babel-preset-react-hmre](https://github.com/danmartinez101/babel-preset-react-hmre) to add react hot module replacement presets.
-* [webpack-dev-middleware](https://github.com/webpack/webpack-dev-middleware) to set up the webpack dev server on the express server.
-* [webpack-hot-middleware](https://github.com/glenjamin/webpack-hot-middleware) to set up hot module replacement on the express server.
+* **store**
+   * [react-addons-update](https://facebook.github.io/react/docs/update.html) to implement immutable updates in the `Store`.
+* **css processing**
+   * [autoprefixer](https://github.com/postcss/autoprefixer) to add browser prefixes to CSS as needed.
+   * [css-loader](https://github.com/webpack/css-loader) to provide CSS modules functionality via webpack.
+   * [style-loader](https://github.com/webpack/style-loader) to add style tags for CSS on demand in the browser.
+   * [extract-text-webpack-plugin](https://github.com/webpack/extract-text-webpack-plugin) to compile all CSS into a separate file in production.
+   * [null-loader](https://github.com/webpack/null-loader) to ignore global CSS in the server render bundle.
+* **hot module replacement**
+   * [babel-preset-react-hmre](https://github.com/danmartinez101/babel-preset-react-hmre) to add react hot module replacement presets.
+   * [webpack-dev-middleware](https://github.com/webpack/webpack-dev-middleware) to set up the webpack dev server on the express server.
+   * [webpack-hot-middleware](https://github.com/glenjamin/webpack-hot-middleware) to set up hot module replacement on the express server.
 
 
-## inspiration
+## Inspiration
 
 * [react-isomorphic-boilerplate](http://jmfurlott.com/tutorial-setting-up-a-simple-isomorphic-react-app/)
 * [react-router-mega-demo](https://github.com/rackt/react-router-mega-demo)
@@ -120,6 +117,8 @@ Hot Module Replacement:
 * [webpack-howto](https://github.com/petehunt/webpack-howto)
 * [react-transform-boilerplate](https://github.com/gaearon/react-transform-boilerplate)
 * [The ultimate Webpack setup](http://www.christianalfoni.com/articles/2015_04_19_The-ultimate-webpack-setup)
+* [Welcome to Future of Web Application Delivery](https://medium.com/@ryanflorence/welcome-to-future-of-web-application-delivery-9750b7564d9f#.fdd6gffgt)
+* [example-react-router-server-rendering-lazy-routes](https://github.com/rackt/example-react-router-server-rendering-lazy-routes)
 
 ## TODOs
 
