@@ -1,3 +1,6 @@
+import './app.css.global';
+import styles from './app.css';
+
 import React from 'react';
 import { Link } from 'react-router';
 

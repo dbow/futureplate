@@ -3,11 +3,11 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 import App from 'src/components/app.jsx';
-import Dashboard from 'src/components/dashboard.jsx';
+import Dashboard from 'src/components/dashboard/dashboard.jsx';
 import About from 'src/components/about/about.jsx';
-import Things from 'src/components/things.jsx';
-import ListOfThings from 'src/components/list.jsx';
-import Thing from 'src/components/thing.jsx';
+import Things from 'src/components/things/things.jsx';
+import ListOfThings from 'src/components/list/list.jsx';
+import Thing from 'src/components/thing/thing.jsx';
 
 import * as actions from 'src/actions/index';
 

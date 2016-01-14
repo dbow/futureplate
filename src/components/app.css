@@ -1,0 +1,3 @@
+.container {
+  composes: default from 'src/styles/typography.css';
+}

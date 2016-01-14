@@ -40,8 +40,8 @@ const JS_LOADER = {
 
 // The pattern to use for the CSS modules generated classnames.
 const CSS_CLASS_PATTERN = '[name]__[local]___[hash:base64:5]';
-// Parameters for css-loader - sets up CSS modules and the classname pattern.
-const CSS_LOADER_PARAMS = '?modules&localIdentName=' + CSS_CLASS_PATTERN;
+// Parameters for css-loader to set up CSS modules and the classname pattern.
+const CSS_MODULES_PARAMS = '?modules&localIdentName=' + CSS_CLASS_PATTERN;
 
 /**
  * The different handlers for CSS requires.
@@ -50,12 +50,12 @@ const CSS_LOADER_PARAMS = '?modules&localIdentName=' + CSS_CLASS_PATTERN;
  */
 const CSS_LOADERS = {
   // Extract the CSS module classnames only.
-  CLASSNAMES: 'css-loader/locals' + CSS_LOADER_PARAMS,
+  CLASSNAMES: 'css-loader/locals' + CSS_MODULES_PARAMS,
   // Compile the CSS to a separate file.
   FILE: ExtractTextPlugin.extract('style-loader',
-      'css-loader' + CSS_LOADER_PARAMS + '&importLoaders=1!autoprefixer-loader'),
+      'css-loader' + CSS_MODULES_PARAMS + '&importLoaders=1!autoprefixer-loader'),
   // Add styles via <style> tags.
-  STYLETAGS: 'style-loader!css-loader' + CSS_LOADER_PARAMS,
+  STYLETAGS: 'style-loader!css-loader' + CSS_MODULES_PARAMS,
 };
 
 
@@ -64,8 +64,7 @@ const CSS_LOADERS = {
  *
  * Generates client.js file served to the browser.
  *
- * In production, CSS just returns classnames, as all the CSS will be served
- * separately in the main.css file.
+ * In production, CSS is extracted into a separate bundle file.
  *
  * In development, CSS is added via <style> tags on demand.
  */
@@ -93,11 +92,17 @@ const client = {
       JS_LOADER,
 
       {
-        test: /\.css/,
+        test: /\.css$/,
         exclude: /node_modules/,
-        loader: DEVELOPMENT ? CSS_LOADERS.STYLETAGS : CSS_LOADERS.CLASSNAMES,
+        loader: DEVELOPMENT ? CSS_LOADERS.STYLETAGS : CSS_LOADERS.FILE,
       },
 
+      {
+        test: /\.global$/,
+        loader: DEVELOPMENT ? 'style-loader!css-loader' :
+            ExtractTextPlugin.extract('style-loader',
+                'css-loader?importLoaders=1!autoprefixer-loader'),
+      },
     ]
   },
 
@@ -109,15 +114,20 @@ const client = {
 };
 
 
+if (!DEVELOPMENT) {
+  client.plugins.push(new ExtractTextPlugin('client.css', {
+    allChunks: true
+  }));
+}
+
+
 /**
  * Server configuration.
  *
  * Generates the server.js file used to render markup on the server.
  *
- * In production, CSS is extracted into a separate bundle file.
- *
- * In development, CSS returns classnames (the CSS is added on the client via
- * <style> tags).
+ * CSS returns classnames (the CSS is added on the client via <style> tags or
+ * an extracted main.css file).
  */
 const server = {
 
@@ -127,18 +137,9 @@ const server = {
 
   target: 'node',
 
-  /**
-   * Only bundle the source code (imports beginning in 'src' or relative
-   * imports e.g. ./somefile). All other imports are treated as externals.
-   * https://webpack.github.io/docs/configuration.html#externals
-   */
-  externals: function(context, request, callback) {
-    if (request.indexOf('src') !== 0 &&
-        request.indexOf('.') !== 0) {
-      return callback(null, 'commonjs ' + request);
-    }
-    callback();
-  },
+  // Only bundle the source code. All other imports are treated as externals.
+  // https://webpack.github.io/docs/configuration.html#externals
+  externals: /^[a-z\-0-9]+$/,
 
   resolve: RESOLVE,
 
@@ -161,9 +162,14 @@ const server = {
       JS_LOADER,
 
       {
-        test: /\.css/,
+        test: /\.css$/,
         exclude: /node_modules/,
-        loader: DEVELOPMENT ? CSS_LOADERS.CLASSNAMES : CSS_LOADERS.FILE,
+        loader: CSS_LOADERS.CLASSNAMES,
+      },
+
+      {
+        test: /\.global$/,
+        loader: 'null-loader',
       },
 
     ]
@@ -177,12 +183,6 @@ const server = {
     }),
   ],
 };
-
-if (!DEVELOPMENT) {
-  server.plugins.push(new ExtractTextPlugin('main.css', {
-    allChunks: true
-  }));
-}
 
 
 module.exports = [client, server];
