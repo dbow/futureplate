@@ -94,17 +94,20 @@ const client = {
 
       {
         test: /\.css$/,
-        exclude: /node_modules/,
+        exclude: [
+          /node_modules/,
+          /\.global\.css$/,
+        ],
         loader: DEVELOPMENT ? CSS_LOADERS.STYLETAGS : CSS_LOADERS.FILE,
       },
 
       {
-        test: /\.global$/,
+        test: /\.global\.css$/,
         loader: DEVELOPMENT ? 'style-loader!css-loader' :
             ExtractTextPlugin.extract('style-loader',
                 'css-loader?importLoaders=1!autoprefixer-loader'),
       },
-    ]
+    ],
   },
 
   plugins: HMR ? [
@@ -162,12 +165,15 @@ const server = {
 
       {
         test: /\.css$/,
-        exclude: /node_modules/,
+        exclude: [
+          /node_modules/,
+          /\.global\.css$/,
+        ],
         loader: CSS_LOADERS.CLASSNAMES,
       },
 
       {
-        test: /\.global$/,
+        test: /\.global\.css$/,
         loader: 'null-loader',
       },
 
