@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, browserHistory } from 'react-router';
+import { Router, browserHistory, match } from 'react-router';
 
 import IndexStore from 'src/stores/index';
 import routes from 'src/routes';
@@ -18,9 +18,11 @@ const routeHandler = (Component, props) => {
   return <Component {...props} />
 }
 
-render((
-  <FluxContext store={store}>
-    <Router routes={routes} history={browserHistory} createElement={routeHandler} />
-  </FluxContext>
-), document.getElementById('app'));
+match({routes, location }, () => {
+  render((
+    <FluxContext store={store}>
+      <Router routes={routes} history={browserHistory} createElement={routeHandler} />
+    </FluxContext>
+  ), document.getElementById('app'));
+})
 

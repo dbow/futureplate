@@ -80,7 +80,8 @@ const client = {
 
   output: {
     path: OUTPUT_DIR,
-    filename: 'client.js',
+    filename: '[name].js',
+    chunkFilename: '[id].chunk.js',
     publicPath: '/build/',
   },
 
@@ -115,9 +116,7 @@ const client = {
 
 
 if (!DEVELOPMENT) {
-  client.plugins.push(new ExtractTextPlugin('client.css', {
-    allChunks: true
-  }));
+  client.plugins.push(new ExtractTextPlugin('[name].css'));
 }
 
 
