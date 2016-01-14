@@ -137,18 +137,9 @@ const server = {
 
   target: 'node',
 
-  /**
-   * Only bundle the source code (imports beginning in 'src' or relative
-   * imports e.g. ./somefile). All other imports are treated as externals.
-   * https://webpack.github.io/docs/configuration.html#externals
-   */
-  externals: function(context, request, callback) {
-    if (request.indexOf('src') !== 0 &&
-        request.indexOf('.') !== 0) {
-      return callback(null, 'commonjs ' + request);
-    }
-    callback();
-  },
+  // Only bundle the source code. All other imports are treated as externals.
+  // https://webpack.github.io/docs/configuration.html#externals
+  externals: /^[a-z\-0-9]+$/,
 
   resolve: RESOLVE,
 
