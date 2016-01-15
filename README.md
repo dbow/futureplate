@@ -26,7 +26,7 @@
     * Simple Flux implementation inspired by (and probably pretty interchangeable with) Redux.
     * Top level `Store` object with as many child stores as necessary.
     * Simple cache for `Store` data.
-    * Only actions can update the stores.
+    * Only actions should update the stores.
     * Higher order components are used to add a `Store` reference to React `context` and to re-render components on any change to store.
 
 
@@ -48,7 +48,7 @@
 
     * All JS uses ES6 syntax via Babel.
     * Webpack provides module bundling.
-    * Code splitting can be implemented on the router level.
+    * Code splitting can be implemented **on the router level**.
     * Dev Mode: Re-compile bundle(s) and re-start server on any change.
     * Hot Module Replacement Mode: Optional hot reloading for React components and CSS modules.
 
@@ -73,6 +73,8 @@
 Compiles assets via `npm run build` and then starts the web server in production mode.
 `npm run build` just runs `webpack` to compile both the client and server rendering bundle in production mode.
 CSS is extracted into a separate static file (main.css), which is added to the index.jade template on the web server.
+
+*NOTE: `ExtractTextPlugin` is __not__ run in `allChunks` mode by default, so CSS required by routes that are split out into separate chunks will not be extracted. That CSS is added on the client in a `<style>` tag, which might create a FOUC and be undesirable. Webpack is [very flexible](https://webpack.github.io/docs/stylesheets.html#separate-css-bundle) with how it handles stylesheets and a specific strategy should be implemented based on the requirements of the particular site.*
 
 
 ### Development
