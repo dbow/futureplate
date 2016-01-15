@@ -62,27 +62,45 @@
 
 ## Setup
 
-* **requires node v4! make sure your environment is up to date**
-* `npm install`
-* `npm run start`
+**requires node v4! make sure your environment is up to date**
 
-    * Compiles assets for production.
-    * Runs web server in production mode.
-    * CSS extracted to a static file (main.css).
+`npm install`
 
-* `npm run dev-build` && `npm run dev` (two terminals)
+### Production
 
-    * Compiles assets for development and watches to re-compile.
-    * Runs web server via nodemon to re-start on changes.
-    * *Must be done in two terminals since `dev-build` runs webpack in watch mode*.
-    * CSS loaded on the client via `<style>` tags.
+`npm run start`
 
-* `npm run hot-client` && `npm run hot-build` && `npm run hot` (three terminals)
+Compiles assets via `npm run build` and then starts the web server in production mode.
+`npm run build` just runs `webpack` to compile both the client and server rendering bundle in production mode.
+CSS is extracted into a separate static file (main.css), which is added to the index.jade template on the web server.
 
-    * Compiles client assets with hot module replacement and serves them via webpack-dev-server on port 8080.
-    * Compiles server render assets and watches to re-compile.
-    * Runs web server via nodemon to re-start on changes, and tells client to find assets via webpack-dev-server.
-    * *Must be done in three terminals as all three process do not exit*
+
+### Development
+
+`npm run build-dev`
+
+Compiles assets for development with webpack in watch mode, re-compiling on any file change.
+CSS is loaded on the client via `<style>` tags (using `style-loader`).
+
+`npm run start-dev`
+
+Starts the web server via nodemon to re-start on any change (such as when webpack re-compiles the server-render bundle).
+
+
+### Hot Module Replacement
+
+`npm run build-hot`
+
+Runs the `build-dev` script with SERVER_ONLY flag so it only compiles the server-render bundle (since the client bundle is handled by the webpack-dev-server).
+
+`npm run start-hot`
+
+Runs the `start-dev` script with HOT_MODULE_REPLACEMENT flag which tells the server to retrieve the client scripts from the webpack-dev-server.
+
+`npm run hot-server`
+
+Compiles the client bundle with hot module replacement (BABEL_ENV=HOT_MODULE_REPLACEMENT tells it to use HMR via .babelrc and in the webpack config) and serves it on port 8080 via webpack-dev-server.
+
 
 ## Core Technologies
 
@@ -103,6 +121,7 @@
    * [babel-preset-react](https://babeljs.io/docs/plugins/preset-react/) to transform JSX into createElement calls.
 * **development**
    * [nodemon](https://github.com/remy/nodemon) to restart web server in dev mode after re-compiling bundles.
+   * [rimraf](https://github.com/isaacs/rimraf) to clean the build directory.
 * **store**
    * [react-addons-update](https://facebook.github.io/react/docs/update.html) to implement immutable updates in the `Store`.
 * **css processing**
