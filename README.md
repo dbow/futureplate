@@ -12,6 +12,8 @@
 
 \+ **[code splitting](https://webpack.github.io/docs/code-splitting.html)**
 
+\+ **[hot module replacement](https://webpack.github.io/docs/hot-module-replacement.html)**
+
 ## Goals
 
 * **Simple and Clear**

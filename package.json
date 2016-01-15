@@ -1,7 +1,7 @@
 {
   "name": "futureplate",
   "version": "0.0.1",
-  "description": "Boilerplate project for future-facing tech: universal react + flux + react-router + css modules",
+  "description": "Boilerplate project for future-facing tech: universal react + flux + react-router + css modules + code splitting + hot module replacement",
   "engine": "node 4.2.1",
   "main": "src/index.js",
   "scripts": {
@@ -14,7 +14,26 @@
     "build": "npm run clean && webpack",
     "start": "npm run build && node src/index.js"
   },
-  "author": "Danny Bowman",
+  "license": "MIT",
+  "author": {
+    "name": "Danny Bowman @dbow",
+    "url": "http://www.d-bow.com",
+    "email": "danny@d-bow.com"
+  },
+  "keywords": [
+    "universal",
+    "react",
+    "reactjs",
+    "flux",
+    "react-router",
+    "css modules",
+    "code splitting",
+    "hot module replacement",
+    "hmr",
+    "hot",
+    "reload",
+    "webpack"
+  ],
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",
     "babel-core": "^6.4.0",
