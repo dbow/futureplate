@@ -3,16 +3,15 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 import App from 'src/components/app.jsx';
+import Dashboard from 'src/components/dashboard/dashboard.jsx';
 
 import * as actions from 'src/actions/index';
 
 // polyfill webpack require.ensure
 if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
 
-export default {
-  path: '/',
-  component: App,
-  getChildRoutes(location, cb) {
+export default (
+  <Route path='/' component={App} getChildRoutes={(location, cb) => {
     require.ensure([], (require) => {
       cb(null, [
         {
@@ -60,14 +59,8 @@ export default {
         }
       ]);
     });
-  },
-  indexRoute: {
-    getComponent(location, cb) {
-      require.ensure([], (require) => {
-        var Dashboard = require('src/components/dashboard/dashboard.jsx');
-        cb(null, Dashboard.default);
-      });
-    }
-  }
-};
+  }}>
+    <IndexRoute component={Dashboard} />
+  </Route>
+);
 
