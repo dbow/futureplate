@@ -11,8 +11,8 @@ import { getDependencies } from './utils/index';
 import { FluxContext } from './utils/wrappers';
 
 
-const DEVELOPMENT = process.env.NODE_ENV === 'DEVELOPMENT';
-const HOT_MODULE_REPLACEMENT = DEVELOPMENT && process.env.HOT_MODULE_REPLACEMENT;
+const DEVELOPMENT = process.env.NODE_ENV === 'development';
+const HOT_MODULE_REPLACEMENT = DEVELOPMENT && process.env.HMR;
 
 const app = express();
 

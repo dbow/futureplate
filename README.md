@@ -79,29 +79,29 @@ CSS is extracted into a separate static file (main.css), which is added to the i
 
 ### Development
 
-`npm run build-dev`
+`npm run build:dev`
 
 Compiles assets for development with webpack in watch mode, re-compiling on any file change.
 CSS is loaded on the client via `<style>` tags (using `style-loader`).
 
-`npm run start-dev`
+`npm run start:dev`
 
 Starts the web server via nodemon to re-start on any change (such as when webpack re-compiles the server-render bundle).
 
 
 ### Hot Module Replacement
 
-`npm run build-hot`
+`npm run build:hot`
 
-Runs the `build-dev` script with SERVER_ONLY flag so it only compiles the server-render bundle (since the client bundle is handled by the webpack-dev-server).
+Runs the `build:dev` script with SERVER_ONLY flag so it only compiles the server-render bundle (since the client bundle is handled by the webpack-dev-server).
 
-`npm run start-hot`
+`npm run start:hot`
 
-Runs the `start-dev` script with HOT_MODULE_REPLACEMENT flag which tells the server to retrieve the client scripts from the webpack-dev-server.
+Runs the `start:dev` script with HMR flag which tells the server to retrieve the client scripts from the webpack-dev-server.
 
-`npm run hot-server`
+`npm run hot`
 
-Compiles the client bundle with hot module replacement (BABEL_ENV=HOT_MODULE_REPLACEMENT tells it to use HMR via .babelrc and in the webpack config) and serves it on port 8080 via webpack-dev-server.
+Compiles the client bundle with hot module replacement (BABEL_ENV=hmr tells it to use hot module replacement via .babelrc and in the webpack config) and serves it on port 8080 via webpack-dev-server.
 
 
 ## Core Technologies

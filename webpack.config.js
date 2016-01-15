@@ -3,17 +3,20 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 /**
- * Run `webpack` with NODE_ENV=DEVELOPMENT to do a dev build.
+ * Run `webpack` with NODE_ENV=development to do a dev build.
+ *
+ * DEVELOPMENT primarily affects how CSS is handled, as well as the devtool
+ * configuration.
+ *
  * Defaults to production.
  */
-const DEVELOPMENT = process.env.NODE_ENV === 'DEVELOPMENT';
+const DEVELOPMENT = process.env.NODE_ENV === 'development';
 
 /**
- * Run `webpack` with NODE_ENV=DEVELOPMENT and BABEL_ENV=HOT_MODULE_REPLACEMENT
- * to enable hot module replacement.
+ * Run `webpack` with NODE_ENV=development and BABEL_ENV=hmr to enable hot
+ * module replacement.
  */
-const HOT_MODULE_REPLACEMENT = DEVELOPMENT &&
-    (process.env.BABEL_ENV === 'HOT_MODULE_REPLACEMENT');
+const HOT_MODULE_REPLACEMENT = DEVELOPMENT && process.env.BABEL_ENV === 'hmr';
 
 
 /**
@@ -32,9 +35,6 @@ const JS_LOADER = {
   test: /\.jsx?$/,
   loader: 'babel-loader',
   exclude: /node_modules/,
-  query: {
-    presets: ['es2015', 'react'],
-  },
 };
 
 
@@ -66,7 +66,7 @@ const CSS_LOADERS = {
 /**
  * Client configuration.
  *
- * Generates client.js file served to the browser.
+ * Generates client bundles served to the browser.
  *
  * In production, CSS is extracted into a separate bundle file.
  *
@@ -133,7 +133,7 @@ if (!DEVELOPMENT) {
 /**
  * Server configuration.
  *
- * Generates the server.js file used to render markup on the server.
+ * Generates the server-render.js file used to render markup on the server.
  *
  * CSS returns classnames (the CSS is added on the client via <style> tags or
  * an extracted main.css file).
@@ -190,6 +190,9 @@ const server = {
   },
 
   plugins: [
+    // The API_URL is used to tell the utils/api file where the API root is.
+    // Defaults to relative /api/ on the client bundle but is set specifically
+    // on the server.
     new webpack.DefinePlugin({
       'process.env': {
         API_URL: JSON.stringify('http://localhost:3000/api/'),

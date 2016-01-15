@@ -7,12 +7,12 @@
   "scripts": {
     "clean": "rimraf build",
     "build": "npm run clean && webpack",
-    "build-dev": "npm run clean && NODE_ENV=DEVELOPMENT webpack -w",
-    "build-hot": "SERVER_ONLY=TRUE npm run build-dev",
+    "build:dev": "npm run clean && NODE_ENV=development webpack -w",
+    "build:hot": "SERVER_ONLY=true npm run build:dev",
     "start": "npm run build && node src/index.js",
-    "start-dev": "NODE_ENV=DEVELOPMENT node_modules/nodemon/bin/nodemon.js src/index.js",
-    "start-hot": "HOT_MODULE_REPLACEMENT=TRUE npm run start-dev",
-    "hot-server": "NODE_ENV=DEVELOPMENT BABEL_ENV=HOT_MODULE_REPLACEMENT node webpack-dev-server.js"
+    "start:dev": "NODE_ENV=development node_modules/nodemon/bin/nodemon.js src/index.js",
+    "start:hot": "HMR=true npm run start:dev",
+    "hot": "NODE_ENV=development BABEL_ENV=hmr node webpack-dev-server.js"
   },
   "license": "MIT",
   "author": {
