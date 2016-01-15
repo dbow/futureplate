@@ -16,6 +16,8 @@ const HOT_MODULE_REPLACEMENT = DEVELOPMENT && process.env.HMR;
 
 const app = express();
 
+app.set('port', (process.env.PORT || 3000));
+
 app.set('views', 'src/views');
 app.set('view engine', 'jade');
 
@@ -72,7 +74,7 @@ app.get('/*', function(req, res) {
   });
 });
 
-const server = app.listen(3000, function() {
+const server = app.listen(app.get('port'), function() {
   const host = server.address().address;
   const port = server.address().port;
   console.log('App listening at http://%s:%s', host, port);
