@@ -154,7 +154,8 @@ Compiles the client bundle with hot module replacement (BABEL_ENV=hmr tells it t
 
 ## TODOs
 
-* Tests
+* Hot Module Replacement should handle errors better - the HMRE preset captures some but not all.
+* Add Testing framework (Jest) and some unit test examples.
 * Routing
 
     * Add a way to define blocking actions on routes. i.e. actions that must complete *before* the route component is rendered.  
