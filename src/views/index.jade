@@ -9,11 +9,11 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1')
 
     unless development
-      link(rel='stylesheet', type='text/css', href='/build/main.css')
+      link(rel='stylesheet', type='text/css', href='#{base}/build/main.css')
 
   body
     #app!= content
 
   script.
     window.data = !{JSON.stringify(data)};
-  script(src='/build/main.js', defer)
+  script(src='#{base}/build/main.js', defer)

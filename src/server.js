@@ -4,13 +4,15 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 
-import routes from '../build/server';
+import routes from '../build/server-render';
+
 import IndexStore from './stores/index';
 import { getDependencies } from './utils/index';
 import { FluxContext } from './utils/wrappers';
 
 
-const ENV = process.env.NODE_ENV || 'production';
+const DEVELOPMENT = process.env.NODE_ENV === 'DEVELOPMENT';
+const HOT_MODULE_REPLACEMENT = DEVELOPMENT && process.env.HOT_MODULE_REPLACEMENT;
 
 const app = express();
 
@@ -24,20 +26,8 @@ import mockApi from './mock-api';
 app.use('/api', mockApi);
 
 
-// Hot module replacement in development mode with HMR specified.
-if (ENV === 'development' && process.env.HMR) {
-  process.env.BABEL_ENV = 'HMR';
-  const webpack = require('webpack');
-  const config = require('../webpack.config.js')[0];
-  const compiler = webpack(config);
-  app.use(require('webpack-dev-middleware')(compiler, {
-    noInfo: true,
-    publicPath: config.output.publicPath
-  }));
-  app.use(require('webpack-hot-middleware')(compiler));
-
 // Serve up /build directory statically when not doing hot module replacement.
-} else {
+if (!HOT_MODULE_REPLACEMENT) {
   app.use('/build', express.static('build'));
 }
 
@@ -67,7 +57,8 @@ app.get('/*', function(req, res) {
           res.render('index', {
             content,
             data,
-            development: ENV === 'development',
+            development: DEVELOPMENT,
+            base: HOT_MODULE_REPLACEMENT ? 'http://localhost:8080' : '',
           });
         })
         .catch((error) => {

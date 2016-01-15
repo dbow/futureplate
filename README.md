@@ -75,9 +75,12 @@
     * *Must be done in two terminals since `dev-build` runs webpack in watch mode*.
     * CSS loaded on the client via `<style>` tags.
 
-* `npm run hot`
+* `npm run hot-client` && `npm run hot-build` && `npm run hot` (three terminals)
 
-    * Compiles assets for development and runs web server in hot module replacement mode.
+    * Compiles client assets with hot module replacement and serves them via webpack-dev-server on port 8080.
+    * Compiles server render assets and watches to re-compile.
+    * Runs web server via nodemon to re-start on changes, and tells client to find assets via webpack-dev-server.
+    * *Must be done in three terminals as all three process do not exit*
 
 ## Core Technologies
 
@@ -85,12 +88,19 @@
 * [react](https://facebook.github.io/react/) for component rendering.
 * [react-router](https://github.com/rackt/react-router) for universal routing.
 * [webpack](https://webpack.github.io/) to preprocess and bundle css and js and implement code splitting.
-* [babel](https://babeljs.io/) to allow for ES6 syntax.
+* [babel](https://babeljs.io/) to allow for ES2015 syntax.
 * [superagent](http://visionmedia.github.io/superagent/) for client and node AJAX.
+* [jade](http://jade-lang.com/) for node templates.
 
 ## Honorable Mentions
 
-* [nodemon](https://github.com/remy/nodemon) to restart web server in dev mode after re-compiling bundles.
+* **babel**
+   * [babel-register](https://babeljs.io/docs/usage/require/) to use the babel require hook for ES2015 server code.
+   * [babel-loader](https://github.com/babel/babel-loader) to use babel in webpack.
+   * [babel-preset-es2015](https://babeljs.io/docs/plugins/preset-es2015/) to transform ES2015 into ES5
+   * [babel-preset-react](https://babeljs.io/docs/plugins/preset-react/) to transform JSX into createElement calls.
+* **development**
+   * [nodemon](https://github.com/remy/nodemon) to restart web server in dev mode after re-compiling bundles.
 * **store**
    * [react-addons-update](https://facebook.github.io/react/docs/update.html) to implement immutable updates in the `Store`.
 * **css processing**
@@ -100,9 +110,8 @@
    * [extract-text-webpack-plugin](https://github.com/webpack/extract-text-webpack-plugin) to compile all CSS into a separate file in production.
    * [null-loader](https://github.com/webpack/null-loader) to ignore global CSS in the server render bundle.
 * **hot module replacement**
-   * [babel-preset-react-hmre](https://github.com/danmartinez101/babel-preset-react-hmre) to add react hot module replacement presets.
-   * [webpack-dev-middleware](https://github.com/webpack/webpack-dev-middleware) to set up the webpack dev server on the express server.
-   * [webpack-hot-middleware](https://github.com/glenjamin/webpack-hot-middleware) to set up hot module replacement on the express server.
+   * [babel-preset-react-hmre](https://github.com/danmartinez101/babel-preset-react-hmre) to add react hot module replacement transforms (i.e. [react-transform-hmr](https://github.com/gaearon/react-transform-hmr), [react-transform-catch-errors](https://github.com/gaearon/react-transform-catch-errors), and [redbox-react](https://github.com/KeywordBrain/redbox-react))
+   * [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html) to set up hot module replacement of client assets.
 
 
 ## Inspiration

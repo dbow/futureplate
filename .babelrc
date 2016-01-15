@@ -1,8 +1,13 @@
 {
-  "presets": ["es2015", "react"],
+  "presets": [
+    "es2015",
+    "react"
+  ],
   "env": {
-    "HMR": {
-      "presets": ["react-hmre"]
+    "HOT_MODULE_REPLACEMENT": {
+      "presets": [
+        "react-hmre"
+      ]
     }
   }
 }

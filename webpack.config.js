@@ -3,20 +3,24 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 /**
- * Run `webpack` with NODE_ENV=development to do a dev build. Defaults to
- * production.
+ * Run `webpack` with NODE_ENV=DEVELOPMENT to do a dev build.
+ * Defaults to production.
  */
-const DEVELOPMENT = process.env.NODE_ENV === 'development';
-const HMR = process.env.BABEL_ENV === 'HMR';
+const DEVELOPMENT = process.env.NODE_ENV === 'DEVELOPMENT';
+
+/**
+ * Run `webpack` with NODE_ENV=DEVELOPMENT and BABEL_ENV=HOT_MODULE_REPLACEMENT
+ * to enable hot module replacement.
+ */
+const HOT_MODULE_REPLACEMENT = DEVELOPMENT &&
+    (process.env.BABEL_ENV === 'HOT_MODULE_REPLACEMENT');
 
 
 /**
  * Path configuration.
  */
 const OUTPUT_DIR = path.join(__dirname, 'build');
-const RESOLVE = {
-  root: __dirname
-};
+const RESOLVE_DIR = __dirname;
 
 
 /**
@@ -72,20 +76,23 @@ const client = {
 
   devtool: DEVELOPMENT ? 'sourcemaps' : undefined,
 
-  entry: HMR ? [
-    './src/client',
-    // Hot reloading
-    'webpack-hot-middleware/client',
-  ] : './src/client',
+  entry: ['./src/client'].concat(
+    HOT_MODULE_REPLACEMENT ? [
+      'webpack-dev-server/client?http://localhost:8080',
+      'webpack/hot/dev-server',
+    ] : []),
 
   output: {
     path: OUTPUT_DIR,
     filename: '[name].js',
     chunkFilename: '[id].chunk.js',
-    publicPath: '/build/',
+    publicPath: (HOT_MODULE_REPLACEMENT ?
+        'http://localhost:8080' : '') + '/build/',
   },
 
-  resolve: RESOLVE,
+  resolve: {
+    root: RESOLVE_DIR,
+  },
 
   module: {
     loaders: [
@@ -110,7 +117,7 @@ const client = {
     ],
   },
 
-  plugins: HMR ? [
+  plugins: HOT_MODULE_REPLACEMENT ? [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
@@ -143,11 +150,13 @@ const server = {
   // https://webpack.github.io/docs/configuration.html#externals
   externals: /^[a-z\-0-9]+$/,
 
-  resolve: RESOLVE,
+  resolve: {
+    root: RESOLVE_DIR,
+  },
 
   output: {
     path: OUTPUT_DIR,
-    filename: 'server.js',
+    filename: 'server-render.js',
     libraryTarget: 'commonjs2',
   },
 
@@ -190,5 +199,5 @@ const server = {
 };
 
 
-module.exports = [client, server];
+module.exports = process.env.SERVER_ONLY ? server : [client, server];
 
