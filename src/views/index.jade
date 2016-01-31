@@ -1,6 +1,7 @@
-html
+doctype html
+html(lang='en')
   head
-    title="FuturePlate"
+    title='FuturePlate'
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
 
@@ -9,11 +10,14 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1')
 
     unless development
-      link(rel='stylesheet', type='text/css', href='#{base}/build/main.css')
+      link(rel='stylesheet', type='text/css', href='#{base}/static/main.css')
 
   body
     #app!= content
 
   script.
-    window.data = !{JSON.stringify(data)};
-  script(src='#{base}/build/main.js', defer)
+    window.data = !{data};
+
+  script(src='#{base}/static/vendor.js', defer)
+  script(src='#{base}/static/main.js', defer)
+

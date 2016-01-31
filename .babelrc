@@ -3,6 +3,7 @@
     "es2015",
     "react"
   ],
+  "compact": true,
   "env": {
     "hmr": {
       "presets": [

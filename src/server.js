@@ -3,8 +3,10 @@ import _ from 'lodash';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
+import favicon from 'serve-favicon';
+import serialize from 'serialize-javascript';
 
-import routes from '../build/server-render';
+import routes from './routes';
 
 import IndexStore from './stores/index';
 import { getDependencies } from './utils/index';
@@ -16,21 +18,25 @@ const HOT_MODULE_REPLACEMENT = DEVELOPMENT && process.env.HMR;
 
 const app = express();
 
-app.set('port', (process.env.PORT || 3000));
+const PORT = process.env.PORT || 3000;
+app.set('port', PORT);
 
 app.set('views', 'src/views');
 app.set('view engine', 'jade');
 
+app.use(favicon(__dirname + '/images/favicon.ico'));
+app.use('/images', express.static(__dirname + '/images'));
 
 // Mock API endpoints!
-// TODO(dbow): Remove from anything real.
+// TODO(dbow): Remove when API exists!
 import mockApi from './mock-api';
 app.use('/api', mockApi);
 
+process.env.API_URL = process.env.API_URL || `http://127.0.0.1:${PORT}/api/`;
 
 // Serve up /build directory statically when not doing hot module replacement.
 if (!HOT_MODULE_REPLACEMENT) {
-  app.use('/build', express.static('build'));
+  app.use('/static', express.static('build/client'));
 }
 
 
@@ -55,7 +61,7 @@ app.get('/*', function(req, res) {
               <RouterContext {...renderProps} />
             </FluxContext>
           ));
-          const data = store.serialize();
+          const data = serialize(store.serialize());
           res.render('index', {
             content,
             data,

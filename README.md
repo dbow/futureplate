@@ -93,7 +93,7 @@ Starts the web server via nodemon to re-start on any change (such as when webpac
 
 `npm run build:hot`
 
-Runs the `build:dev` script with SERVER_ONLY flag so it only compiles the server-render bundle (since the client bundle is handled by the webpack-dev-server).
+Runs the `build:dev` script with HMR flag so it only compiles the server-render bundle (since the client bundle is handled by the webpack-dev-server).
 
 `npm run start:hot`
 
@@ -111,27 +111,33 @@ Compiles the client bundle with hot module replacement (BABEL_ENV=hmr tells it t
 * [react-router](https://github.com/rackt/react-router) for universal routing.
 * [webpack](https://webpack.github.io/) to preprocess and bundle css and js and implement code splitting.
 * [babel](https://babeljs.io/) to allow for ES2015 syntax.
-* [superagent](http://visionmedia.github.io/superagent/) for client and node AJAX.
-* [jade](http://jade-lang.com/) for node templates.
+
 
 ## Honorable Mentions
 
 * **babel**
-   * [babel-register](https://babeljs.io/docs/usage/require/) to use the babel require hook for ES2015 server code.
    * [babel-loader](https://github.com/babel/babel-loader) to use babel in webpack.
    * [babel-preset-es2015](https://babeljs.io/docs/plugins/preset-es2015/) to transform ES2015 into ES5
    * [babel-preset-react](https://babeljs.io/docs/plugins/preset-react/) to transform JSX into createElement calls.
-* **development**
-   * [nodemon](https://github.com/remy/nodemon) to restart web server in dev mode after re-compiling bundles.
-   * [rimraf](https://github.com/isaacs/rimraf) to clean the build directory.
-* **store**
-   * [react-addons-update](https://facebook.github.io/react/docs/update.html) to implement immutable updates in the `Store`.
 * **css processing**
    * [autoprefixer](https://github.com/postcss/autoprefixer) to add browser prefixes to CSS as needed.
    * [css-loader](https://github.com/webpack/css-loader) to provide CSS modules functionality via webpack.
-   * [style-loader](https://github.com/webpack/style-loader) to add style tags for CSS on demand in the browser.
    * [extract-text-webpack-plugin](https://github.com/webpack/extract-text-webpack-plugin) to compile all CSS into a separate file in production.
    * [null-loader](https://github.com/webpack/null-loader) to ignore global CSS in the server render bundle.
+   * [postcss-loader](https://github.com/postcss/postcss-loader) to postprocess CSS in webpack.
+   * [postcss-import](https://github.com/postcss/postcss-import) to inline @import calls in CSS.
+   * [style-loader](https://github.com/webpack/style-loader) to add style tags for CSS on demand in the browser.
+* **utility/misc**
+   * [jade](http://jade-lang.com/) for node templates.
+   * [lodash](lodash.com) for utility functions.
+   * [react-addons-update](https://facebook.github.io/react/docs/update.html) to implement immutable updates in the `Store`.
+   * [serialize-javascript](https://github.com/yahoo/serialize-javascript) to serialize store state and pass it safely to the client.
+   * [serve-favicon](https://github.com/expressjs/serve-favicon) to serve the favicon.ico.
+   * [source-map-support](https://github.com/evanw/node-source-map-support) for source map support in node.
+   * [superagent](http://visionmedia.github.io/superagent/) for client and node AJAX.
+* **development**
+   * [nodemon](https://github.com/remy/nodemon) to restart web server in dev mode after re-compiling bundles.
+   * [rimraf](https://github.com/isaacs/rimraf) to clean the build directory.
 * **hot module replacement**
    * [babel-preset-react-hmre](https://github.com/danmartinez101/babel-preset-react-hmre) to add react hot module replacement transforms (i.e. [react-transform-hmr](https://github.com/gaearon/react-transform-hmr), [react-transform-catch-errors](https://github.com/gaearon/react-transform-catch-errors), and [redbox-react](https://github.com/KeywordBrain/redbox-react))
    * [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html) to set up hot module replacement of client assets.
@@ -154,7 +160,6 @@ Compiles the client bundle with hot module replacement (BABEL_ENV=hmr tells it t
 
 ## TODOs
 
-* Hot Module Replacement should handle errors better - the HMRE preset captures some but not all.
 * Add Testing framework (Jest) and some unit test examples.
 * Routing
 

@@ -1,6 +1,6 @@
 .container {
-  composes: pink-text gray-background from 'src/styles/colors.css';
-  composes: padding-standard from 'src/styles/layout.css';
+  composes: pink-text gray-background from 'src/styles/common.css';
+  composes: padding-standard from 'src/styles/common.css';
 
   font-size: 30px;
 }
