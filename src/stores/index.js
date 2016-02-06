@@ -4,6 +4,7 @@ import update from 'react-addons-update';
 
 import IdStore from './ids';
 import ThingStore from './things';
+import RandomStore from './random';
 
 import Cache from './cache';
 
@@ -15,6 +16,7 @@ class IndexStore extends EventEmitter {
     this.stores = {
       ids: new IdStore(),
       things: new ThingStore(),
+      random: new RandomStore(),
     };
 
     this.cache = new Cache();

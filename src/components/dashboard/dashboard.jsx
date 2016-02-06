@@ -3,13 +3,10 @@ import styles from './dashboard.css';
 import React from 'react';
 
 
-export default class Dashboard extends React.Component {
-  render() {
-    return (
-      <div className={styles.container}>
-        This is a dashboard.
-      </div>
-    );
-  }
-}
+export default(props) => (
+  <div className={styles.container}>
+    <h2>This is a dashboard.</h2>
+    <div>{`Your random number is ${props.random}`}</div>
+  </div>
+);
 

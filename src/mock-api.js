@@ -23,6 +23,11 @@ router.get('/things/:id', (req, res) => {
   }
 });
 
+router.get('/random', (req, res) => {
+  const random = Math.round(Math.random() * 100);
+  res.send({random});
+});
+
 
 export default router;
 

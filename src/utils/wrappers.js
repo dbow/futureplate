@@ -11,18 +11,30 @@ import React from 'react';
  * Re-render the given Component whenever the store updates and add the
  * store to the Component's context (e.g. `this.context.store`).
  *
+ * This should be called on any container components in charge of getting
+ * data from the store and passing it to presentational components. The
+ * action dependencies of the particular container component should be passed
+ * in as the second argument. And the resulting component should be rendered
+ * by a route.
+ *
  * @param {Component} Component to re-render on store updates.
+ * @param {Function|Array.<Function>} dependencies an action that returns a
+ *     promise, or an array of such actions. Expresses the action dependencies
+ *     that will populate the store with the data needed by the component.
  *
  * @return {Component} Higher order component that will re-render on store
  *     updates.
  */
-export function subscribeToStore(Component) {
+export function subscribeToStore(Component, dependencies) {
   // Add store to component's context (via `this.context.store`).
   Component.contextTypes = {
     store: React.PropTypes.object,
+
+    // Preserve react-router on component context.
+    router: React.PropTypes.object,
   };
 
-  return React.createClass({
+  const container = React.createClass({
     contextTypes: {
       store: React.PropTypes.object,
     },
@@ -43,6 +55,10 @@ export function subscribeToStore(Component) {
       return <Component {...this.props} {...this.state} />;
     }
   });
+
+  container.dependencies = dependencies;
+
+  return container;
 };
 
 

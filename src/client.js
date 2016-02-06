@@ -14,7 +14,8 @@ store.initialize(window.data);
 
 // Get route dependencies whenever a route component is rendered.
 const routeHandler = (Component, props) => {
-  getDependencies([props.route], store, props.params);
+  const routes = props.routes || [props.route];
+  getDependencies(props.routes, store, props.params);
   return <Component {...props} />
 }
 

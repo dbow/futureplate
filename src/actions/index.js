@@ -33,3 +33,18 @@ export function getThing(store, params) {
   return promise;
 }
 
+export function getRandomNumber(store) {
+  const cacheKey = 'random';
+  const cacheTtl = 30 * 1000;
+  if (!store.cache.expired(cacheKey, cacheTtl)) {
+    return Promise.resolve();
+  }
+
+  const promise = api.get('random').then((response) => {
+    store.stores.random.setState(response);
+    store.cache.set(cacheKey);
+  });
+
+  return promise;
+}
+
