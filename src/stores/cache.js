@@ -16,6 +16,10 @@ export default class Cache {
   }
 
   expired(key, ttl) {
+    if (this.__perma) {
+      return false;
+    }
+
     const cached = this.cache[key];
     if (!cached) {
       return true;
@@ -32,6 +36,10 @@ export default class Cache {
 
   serialize() {
     return this.cache;
+  }
+
+  setPerma(perma) {
+    this.__perma = perma;
   }
 }
 

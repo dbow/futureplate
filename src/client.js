@@ -37,7 +37,9 @@ if (module.hot) {
     // NOTE (kyle): i'm not sure if this is sound, but we'll never run HMR on prod
     currentRoutes = require('src/routes').default;
     ReactDOM.unmountComponentAtNode(document.getElementById('app'));
+    store.cache.setPerma(true);
     renderAll();
+    store.cache.setPerma(false);
   });
 
   module.hot.accept('src/stores/index', () => {
@@ -47,7 +49,10 @@ if (module.hot) {
     store = new NewIndexStore();
     store.initialize(data);
 
+    ReactDOM.unmountComponentAtNode(document.getElementById('app'));
+    store.cache.setPerma(true);
     renderAll();
+    store.cache.setPerma(false);
   });
 }
 
