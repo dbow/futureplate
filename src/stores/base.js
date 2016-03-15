@@ -12,7 +12,8 @@ export default class Store extends EventEmitter {
   }
 
   initialize(data) {
-    this.state = deepFreeze(data[this.key]);
+    const state = data[this.key];
+    this.state = state ? deepFreeze(state) : state;
   }
 
   getState() {

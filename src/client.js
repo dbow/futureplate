@@ -1,20 +1,11 @@
 import React from 'react';
-import {render} from 'react-dom';
+import ReactDOM, {render} from 'react-dom';
 import {Router, browserHistory, match} from 'react-router';
 
 import IndexStore from 'src/stores/index';
 import routes from 'src/routes';
 import {getDependencies} from 'src/utils/index';
 import {FluxContext} from 'src/utils/wrappers';
-
-
-let data = localStorage.data;
-if (data) {
-  localStorage.data = null;
-  data = JSON.parse(data);
-} else {
-  data = window.data;
-}
 
 
 let store = new IndexStore();
@@ -30,7 +21,6 @@ const routeHandler = (Component, props) => {
 
 function renderAll() {
   match({currentRoutes, location}, () => {
-    console.log('rendering');
     render((
       <FluxContext store={store}>
         <Router routes={currentRoutes} history={browserHistory} createElement={routeHandler} />
@@ -44,8 +34,10 @@ renderAll();
 
 if (module.hot) {
   module.hot.accept('src/routes', () => {
-    localStorage.data = store.serialize();
-    location.refresh();
+    // NOTE (kyle): i'm not sure if this is sound, but we'll never run HMR on prod
+    currentRoutes = require('src/routes').default;
+    ReactDOM.unmountComponentAtNode(document.getElementById('app'));
+    renderAll();
   });
 
   module.hot.accept('src/stores/index', () => {
