@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import EventEmitter from 'events';
-import update from 'react-addons-update';
+import sculpt from 'sculpt';
 
 import IdStore from './ids';
 import ThingStore from './things';
@@ -35,12 +35,16 @@ class IndexStore extends EventEmitter {
     let data = _.reduce(this.stores, (state, store) => {
       const storeState = store.serialize();
       if (storeState) {
-        state = update(state, {$merge: storeState});
+        state = sculpt(state, {$assign: storeState});
       }
       return state;
     }, {});
 
-    data._cache = this.cache.serialize();
+    data = sculpt(data, {
+      _cache: {
+        $set: this.cache.serialize(),
+      },
+    });
 
     return data;
   }

@@ -1,6 +1,7 @@
 import _ from 'lodash';
+import deepFreeze from 'deep-freeze';
 import EventEmitter from 'events';
-import update from 'react-addons-update';
+import sculpt from 'sculpt';
 
 
 export default class Store extends EventEmitter {
@@ -8,18 +9,29 @@ export default class Store extends EventEmitter {
     super();
     this.key = key;
     this.state = null;
+    this._selections = new WeakMap();
   }
 
   initialize(data) {
-    this.state = data[this.key];
+    const state = data[this.key];
+    this.state = state ? deepFreeze(state) : state;
+    this._selections = new WeakMap();
   }
 
   getState() {
-    return _.cloneDeep(this.state);
+    return this.state;
   }
 
   setState(data) {
-    this.state = this.state ? update(this.state, {$merge: data}) : data;
+    // TODO (kyle): i'm not sure $merg'ing here is expected behavior
+    this.state = this.state ? sculpt(this.state, {$assign: data}) : deepFreeze(data);
+    this._selections = new WeakMap();
+    this.emit('update');
+  }
+
+  updateState(spec) {
+    this.state = sculpt(this.state, spec);
+    this._selections = new WeakMap();
     this.emit('update');
   }
 
@@ -27,6 +39,16 @@ export default class Store extends EventEmitter {
     return {
       [this.key]: this.getState(),
     };
+  }
+
+  createSelector(method) {
+    return function () {
+      const result = this._selections[method];
+      if (result) {
+        return result;
+      }
+      return this._selections[method] = method.apply(this, arguments);
+    }
   }
 }
 

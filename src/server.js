@@ -10,7 +10,7 @@ import routes from './routes';
 
 import IndexStore from './stores/index';
 import { getDependencies } from './utils/index';
-import { FluxContext } from './utils/wrappers';
+import FluxRoot from './flux/root.jsx';
 
 
 const DEVELOPMENT = process.env.NODE_ENV === 'development';
@@ -57,9 +57,9 @@ app.get('/*', function(req, res) {
       Promise.all(dependencies)
         .then(() => {
           const content = renderToString((
-            <FluxContext store={store}>
+            <FluxRoot store={store}>
               <RouterContext {...renderProps} />
-            </FluxContext>
+            </FluxRoot>
           ));
           const data = serialize(store.serialize());
           res.render('index', {
@@ -69,8 +69,8 @@ app.get('/*', function(req, res) {
             base: HOT_MODULE_REPLACEMENT ? 'http://localhost:8080' : '',
           });
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(error => {
+          console.error(error.stack || error);
           res.status(404).send('Not found');
         });
     } else {

@@ -2,22 +2,22 @@ import styles from './thing.css';
 
 import React from 'react';
 
-import { subscribeToStore } from 'src/utils/wrappers';
+import FluxComponent from 'src/flux/component.jsx';
 
 
 class Thing extends React.Component {
   render() {
     const id = parseInt(this.props.params.id, 10);
-    const things = this.context.store.stores.things.getState();
+    const things = this.props.store.stores.things.getState();
     const thing = things && things[id] || {};
     return (
       <div className={styles.default}>
-        Thing { thing.id } : { thing.text }
+        Things { thing.id } : { thing.text }
       </div>
     );
   }
 }
 
 
-export default subscribeToStore(Thing);
+export default FluxComponent(Thing);
 

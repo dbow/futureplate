@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import {set} from 'sculpt';
 
 
 export default class Cache {
@@ -11,10 +12,14 @@ export default class Cache {
   }
 
   set(key) {
-    this.cache[key] = new Date().getTime();
+    this.cache = set(this.cache, key, new Date().getTime());
   }
 
   expired(key, ttl) {
+    if (this.__perma) {
+      return false;
+    }
+
     const cached = this.cache[key];
     if (!cached) {
       return true;
@@ -22,7 +27,7 @@ export default class Cache {
 
     const now = new Date().getTime();
     if (now - cached > ttl) {
-      delete this.cache[key];
+      this.cache = _.omit(this.cache, key);
       return true;
     }
 
@@ -31,6 +36,10 @@ export default class Cache {
 
   serialize() {
     return this.cache;
+  }
+
+  setPerma(perma) {
+    this.__perma = perma;
   }
 }
 

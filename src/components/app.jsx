@@ -10,7 +10,7 @@ export default class App extends React.Component {
     return (
       <div>
         <div className="nav">
-          Hi world!
+          Hello world!!
           <Link to="/about">About</Link>
           <Link to="/">Dashboard</Link>
           <Link to="/list">Things</Link>
