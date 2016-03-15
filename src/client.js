@@ -8,8 +8,17 @@ import {getDependencies} from 'src/utils/index';
 import {FluxContext} from 'src/utils/wrappers';
 
 
+let data = localStorage.data;
+if (data) {
+  localStorage.data = null;
+  data = JSON.parse(data);
+} else {
+  data = window.data;
+}
+
+
 let store = new IndexStore();
-store.initialize(window.data);
+store.initialize(data);
 
 let currentRoutes = routes;
 
@@ -21,9 +30,10 @@ const routeHandler = (Component, props) => {
 
 function renderAll() {
   match({currentRoutes, location}, () => {
+    console.log('rendering');
     render((
       <FluxContext store={store}>
-        <Router routes={routes} history={browserHistory} createElement={routeHandler} />
+        <Router routes={currentRoutes} history={browserHistory} createElement={routeHandler} />
       </FluxContext>
     ), document.getElementById('app'));
   });
@@ -34,8 +44,8 @@ renderAll();
 
 if (module.hot) {
   module.hot.accept('src/routes', () => {
-    currentRoutes = require('src/routes').default;
-    renderAll();
+    localStorage.data = store.serialize();
+    location.refresh();
   });
 
   module.hot.accept('src/stores/index', () => {
