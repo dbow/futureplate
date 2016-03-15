@@ -41,7 +41,7 @@ if (module.hot) {
   });
 
   module.hot.accept('src/stores/index', () => {
-    const NewIndexStore = require('src/stores/index');
+    const NewIndexStore = require('src/stores/index').default;
     const data = store.serialize();
 
     store = new NewIndexStore();

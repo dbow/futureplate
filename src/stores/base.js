@@ -21,7 +21,7 @@ export default class Store extends EventEmitter {
   }
 
   setState(data) {
-    this.state = this.state ? sculpt(this.state, {$merge: data}) : deepFreeze(data);
+    this.state = this.state ? sculpt(this.state, {$assign: data}) : deepFreeze(data);
     this.emit('update');
   }
 

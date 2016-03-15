@@ -8,7 +8,7 @@ import { subscribeToStore } from 'src/utils/wrappers';
 
 class List extends React.Component {
   render() {
-    const things = this.context.store.stores.ids.getState() || [];
+    const things = this.context.store.stores.ids.getOddThings() || [];
     return (
       <div>
         { things.map(thing => (
