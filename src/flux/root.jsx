@@ -26,13 +26,12 @@ export default class FluxRoot extends React.Component {
   }
 
   componentDidMount() {
-    this.store.on('update', () => {
-      this.forceUpdate();
-    });
+    this.listener = () => this.forceUpdate();
+    this.store.on('update', this.listener);
   }
 
   componentWillUnmount() {
-    this.store.off(null, null, this);
+    this.store.removeListener('update', this.listener);
   }
 
   render() {

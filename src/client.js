@@ -56,3 +56,4 @@ if (module.hot) {
   });
 }
 
+window.store = store;
