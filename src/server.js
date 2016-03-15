@@ -10,7 +10,7 @@ import routes from './routes';
 
 import IndexStore from './stores/index';
 import { getDependencies } from './utils/index';
-import { FluxContext } from './utils/wrappers';
+import FluxRoot from './flux/root.jsx';
 
 
 const DEVELOPMENT = process.env.NODE_ENV === 'development';
@@ -57,9 +57,9 @@ app.get('/*', function(req, res) {
       Promise.all(dependencies)
         .then(() => {
           const content = renderToString((
-            <FluxContext store={store}>
+            <FluxRoot store={store}>
               <RouterContext {...renderProps} />
-            </FluxContext>
+            </FluxRoot>
           ));
           const data = serialize(store.serialize());
           res.render('index', {

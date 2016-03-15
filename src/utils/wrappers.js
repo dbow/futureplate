@@ -45,34 +45,3 @@ export function subscribeToStore(Component) {
   });
 };
 
-
-/**
- * Top-level component that provides flux objects via context to all children.
- *
- * Should be used as a wrapper around any routing to provide the flux objects
- * to the React subtree.
- *
- * Based on Redux's Provider component:
- * https://github.com/rackt/react-redux/blob/master/src/components/Provider.js
- *
- * NOTE: Only supplies the store in this implementation but could be updated
- * to provide other flux-related objects if necessary.
- */
-export class FluxContext extends React.Component {
-  getChildContext() {
-    return { store: this.store };
-  }
-
-  constructor(props, context) {
-    super(props, context);
-    this.store = props.store;
-  }
-
-  render() {
-    return this.props.children;
-  }
-}
-FluxContext.childContextTypes = {
-  store: React.PropTypes.object,
-}
-
