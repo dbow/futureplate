@@ -1,6 +1,7 @@
 import _ from 'lodash';
+import deepFreeze from 'deep-freeze';
 import EventEmitter from 'events';
-import update from 'react-addons-update';
+import sculpt from 'sculpt';
 
 
 export default class Store extends EventEmitter {
@@ -11,15 +12,20 @@ export default class Store extends EventEmitter {
   }
 
   initialize(data) {
-    this.state = data[this.key];
+    this.state = deepFreeze(data[this.key]);
   }
 
   getState() {
-    return _.cloneDeep(this.state);
+    return this.state;
   }
 
   setState(data) {
-    this.state = this.state ? update(this.state, {$merge: data}) : data;
+    this.state = this.state ? sculpt(this.state, {$merge: data}) : deepFreeze(data);
+    this.emit('update');
+  }
+
+  updateState(spec) {
+    this.state = sculpt(this.state, spec);
     this.emit('update');
   }
 
