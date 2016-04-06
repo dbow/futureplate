@@ -5,7 +5,8 @@ import { Router, browserHistory, match } from 'react-router';
 import IndexStore from 'src/stores/index';
 import routes from 'src/routes';
 import { getDependencies } from 'src/utils/index';
-import { FluxContext } from 'src/utils/wrappers';
+
+import FluxRoot from 'src/flux/root.jsx';
 
 
 const store = new IndexStore();
@@ -20,9 +21,9 @@ const routeHandler = (Component, props) => {
 
 match({routes, location }, () => {
   render((
-    <FluxContext store={store}>
+    <FluxRoot store={store}>
       <Router routes={routes} history={browserHistory} createElement={routeHandler} />
-    </FluxContext>
+    </FluxRoot>
   ), document.getElementById('app'));
 })
 

@@ -2,13 +2,14 @@ import styles from './thing.css';
 
 import React from 'react';
 
-import { subscribeToStore } from 'src/utils/wrappers';
+import FluxComponent from 'src/flux/component.jsx';
 
 
 class Thing extends React.Component {
   render() {
-    const id = parseInt(this.props.params.id, 10);
-    const things = this.context.store.stores.things.getState();
+    const {store, params} = this.props;
+    const id = parseInt(params.id, 10);
+    const things = store.stores.things.getState();
     const thing = things && things[id] || {};
     return (
       <div className={styles.default}>
@@ -19,5 +20,5 @@ class Thing extends React.Component {
 }
 
 
-export default subscribeToStore(Thing);
+export default FluxComponent(Thing);
 

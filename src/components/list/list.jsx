@@ -3,12 +3,13 @@ import styles from './list.css';
 import React from 'react';
 import { Link } from 'react-router';
 
-import { subscribeToStore } from 'src/utils/wrappers';
+import FluxComponent from 'src/flux/component.jsx';
 
 
 class List extends React.Component {
   render() {
-    const things = this.context.store.stores.ids.getState() || [];
+    const {store} = this.props;
+    const things = store.stores.ids.getState() || [];
     return (
       <div>
         { things.map(thing => (
@@ -23,5 +24,5 @@ class List extends React.Component {
 }
 
 
-export default subscribeToStore(List);
+export default FluxComponent(List);
 
