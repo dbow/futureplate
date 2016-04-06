@@ -1,6 +1,6 @@
 {
   "name": "futureplate",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Boilerplate project for future-facing tech: universal react + flux + react-router + css modules + code splitting + hot module replacement",
   "engine": "node 4.2.1",
   "scripts": {

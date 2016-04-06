@@ -27,8 +27,10 @@
     * Top level `Store` object with as many child stores as necessary.
     * Simple cache for `Store` data.
     * Only actions should update the stores.
-    * Higher order components are used to add a `Store` reference to React `context` and to re-render components on any change to store.
-
+    * Components interact with `store` via an API similar to (read: directly inspired by) [react-redux](https://github.com/reactjs/react-redux):
+        * `store` is added to `props` of a component via a [Higher Order Component](https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750#.i2s58kg09) called `FluxComponent`.
+        * Usage of React's `context` feature is kept as an implementation detail.
+        * Entire component tree is re-rendered on `store` update via `FluxRoot` [container component](https://medium.com/@learnreact/container-components-c0e67432e005#.34fk8yv0y).
 
 * **Universal**
 
@@ -36,12 +38,15 @@
 
 * **Routing**
 
-    * A single file defines routes **and their action dependencies** for both server and client.
-    * Action dependencies reflect the routing hierarchy (a child route will ensure that both its and its parents' dependencies are present).
+    * A single file defines routes for both server and client.
+
+* **Data Dependencies**
+
+    * _Components_ express [their data dependencies](https://medium.com/@dbow1234/expressing-data-dependencies-in-react-43a2004e04bc#.6qeddj6cn).
 
 * **Styles**
 
-    * CSS Modules provide modular (component-scoped classes) and reusable (composable) CSS that brings order to the global scope and explicitly ties CSS into the component hierarchy while still just being simple CSS files.
+    * [CSS Modules](https://medium.com/@dbow1234/component-style-b2b8be6931d3) provide modular (component-scoped classes) and reusable (composable) CSS that brings order to the global scope and explicitly ties CSS into the component hierarchy while still just being simple CSS files.
     * Preprocessors, etc. can be added easily as desired.
 
 * **Development flow and Build Process**
@@ -56,7 +61,7 @@
 ## !Goals
 
 * Functional stores (reducers, like redux).
-* Store-specific re-renders (re-render triggered on entire component tree on any store update).
+* Store- or component-specific re-renders (a re-render is triggered on the entire component tree on any store update).
 * UI tests
 
 
@@ -137,6 +142,7 @@ Compiles the client bundle with hot module replacement and serves it on port 808
    * [serve-favicon](https://github.com/expressjs/serve-favicon) to serve the favicon.ico.
    * [source-map-support](https://github.com/evanw/node-source-map-support) for source map support in node.
    * [superagent](http://visionmedia.github.io/superagent/) for client and node AJAX.
+   * [redial](https://github.com/markdalgleish/redial) to express component data dependencies.
 * **development**
    * [nodemon](https://github.com/remy/nodemon) to restart web server in dev mode after re-compiling bundles.
    * [rimraf](https://github.com/isaacs/rimraf) to clean the build directory.
@@ -163,6 +169,7 @@ Compiles the client bundle with hot module replacement and serves it on port 808
 ## TODOs
 
 * Add Testing framework (Jest) and some unit test examples.
+* Use Webpack2 tree-shaking.
 * Routing
 
     * Add a way to define blocking actions on routes. i.e. actions that must complete *before* the route component is rendered.  
