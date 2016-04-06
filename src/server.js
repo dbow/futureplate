@@ -5,11 +5,11 @@ import {renderToString} from 'react-dom/server';
 import {match, RouterContext} from 'react-router';
 import favicon from 'serve-favicon';
 import serialize from 'serialize-javascript';
+import {trigger} from 'redial';
 
 import routes from './routes';
 
 import IndexStore from './stores/index';
-import {getDependencies} from './utils/index';
 
 import FluxRoot from './flux/root.jsx';
 
@@ -52,10 +52,8 @@ app.get('/*', function(req, res) {
 
     } else if (renderProps) {
       const store = new IndexStore();
-      const dependencies = getDependencies(renderProps.routes,
-                                           store,
-                                           renderProps.params);
-      Promise.all(dependencies)
+      const {components, params} = renderProps;
+      trigger('fetch', components, {store, params})
         .then(() => {
           const content = renderToString((
             <FluxRoot store={store}>

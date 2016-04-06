@@ -5,10 +5,9 @@ import {Route, IndexRoute} from 'react-router';
 import App from 'src/components/app.jsx';
 import Dashboard from 'src/components/dashboard/dashboard.jsx';
 
-import * as actions from 'src/actions/index';
-
 // polyfill webpack require.ensure
 if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
+
 
 export default (
   <Route path='/' component={App} getChildRoutes={(location, cb) => {
@@ -29,7 +28,6 @@ export default (
               cb(null, require('src/components/things/things.jsx').default);
             });
           },
-          dependencies: actions.getIds,
           getChildRoutes(location, cb) {
             require.ensure([], (require) => {
               cb(null, [
@@ -40,7 +38,6 @@ export default (
                       cb(null, require('src/components/thing/thing.jsx').default);
                     });
                   },
-                  dependencies: actions.getThing,
                 }
               ]);
             });

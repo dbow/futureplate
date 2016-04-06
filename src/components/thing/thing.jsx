@@ -1,9 +1,15 @@
 import css from './thing.css';
 
 import React from 'react';
+import {provideHooks} from 'redial';
 
+import {getThing} from 'src/actions/index';
 import FluxComponent from 'src/flux/component.jsx';
 
+
+const dependencies = provideHooks({
+  fetch: ({store, params}) => getThing(store, params),
+});
 
 class Thing extends React.Component {
   render() {
@@ -20,5 +26,5 @@ class Thing extends React.Component {
 }
 
 
-export default FluxComponent(Thing);
+export default dependencies(FluxComponent(Thing));
 
