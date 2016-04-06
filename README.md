@@ -91,6 +91,8 @@ Starts the web server via nodemon to re-start on any change (such as when webpac
 
 ### Hot Module Replacement
 
+*Note: This runs "vanilla webpack HMR" since most state is in the Flux store, as recommended [here](https://github.com/reactjs/redux/pull/1455)*
+
 `npm run build:hot`
 
 Runs the `build:dev` script with HMR flag so it only compiles the server-render bundle (since the client bundle is handled by the webpack-dev-server).
@@ -101,7 +103,7 @@ Runs the `start:dev` script with HMR flag which tells the server to retrieve the
 
 `npm run hot`
 
-Compiles the client bundle with hot module replacement (BABEL_ENV=hmr tells it to use hot module replacement via .babelrc and in the webpack config) and serves it on port 8080 via webpack-dev-server.
+Compiles the client bundle with hot module replacement and serves it on port 8080 via webpack-dev-server.
 
 
 ## Core Technologies
@@ -139,7 +141,6 @@ Compiles the client bundle with hot module replacement (BABEL_ENV=hmr tells it t
    * [nodemon](https://github.com/remy/nodemon) to restart web server in dev mode after re-compiling bundles.
    * [rimraf](https://github.com/isaacs/rimraf) to clean the build directory.
 * **hot module replacement**
-   * [babel-preset-react-hmre](https://github.com/danmartinez101/babel-preset-react-hmre) to add react hot module replacement transforms (i.e. [react-transform-hmr](https://github.com/gaearon/react-transform-hmr), [react-transform-catch-errors](https://github.com/gaearon/react-transform-catch-errors), and [redbox-react](https://github.com/KeywordBrain/redbox-react))
    * [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html) to set up hot module replacement of client assets.
 
 
@@ -157,6 +158,7 @@ Compiles the client bundle with hot module replacement (BABEL_ENV=hmr tells it t
 * [The ultimate Webpack setup](http://www.christianalfoni.com/articles/2015_04_19_The-ultimate-webpack-setup)
 * [Welcome to Future of Web Application Delivery](https://medium.com/@ryanflorence/welcome-to-future-of-web-application-delivery-9750b7564d9f#.fdd6gffgt)
 * [example-react-router-server-rendering-lazy-routes](https://github.com/rackt/example-react-router-server-rendering-lazy-routes)
+* [Hot Reloading in React](https://medium.com/@dan_abramov/hot-reloading-in-react-1140438583bf#.kkvrddsr5)
 
 ## TODOs
 
