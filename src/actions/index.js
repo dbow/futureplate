@@ -17,7 +17,7 @@ export function getIds(store) {
 }
 
 export function getThing(store, params) {
-  const { id = null } = params;
+  const {id = null} = params;
 
   const cacheKey = 'things' + id;
   const cacheTtl = 30 * 1000;

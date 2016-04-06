@@ -1,7 +1,7 @@
-import styles from './list.css';
+import css from './list.css';
 
 import React from 'react';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 
 import FluxComponent from 'src/flux/component.jsx';
 
@@ -14,7 +14,9 @@ class List extends React.Component {
       <div>
         { things.map(thing => (
           <li key={thing}>
-            <Link className={styles.link} to={`list/thing/${thing}`}>{thing}</Link>
+            <Link className={css.link} to={`list/thing/${thing}`}>
+              {thing}
+            </Link>
           </li>
         )) }
         List

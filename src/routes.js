@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import {Route, IndexRoute} from 'react-router';
 
 import App from 'src/components/app.jsx';
 import Dashboard from 'src/components/dashboard/dashboard.jsx';

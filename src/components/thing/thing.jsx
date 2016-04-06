@@ -1,4 +1,4 @@
-import styles from './thing.css';
+import css from './thing.css';
 
 import React from 'react';
 
@@ -12,7 +12,7 @@ class Thing extends React.Component {
     const things = store.stores.things.getState();
     const thing = things && things[id] || {};
     return (
-      <div className={styles.default}>
+      <div className={css.default}>
         Thing { thing.id } : { thing.text }
       </div>
     );

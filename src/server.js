@@ -1,15 +1,15 @@
 import express from 'express';
 import _ from 'lodash';
 import React from 'react';
-import { renderToString } from 'react-dom/server';
-import { match, RouterContext } from 'react-router';
+import {renderToString} from 'react-dom/server';
+import {match, RouterContext} from 'react-router';
 import favicon from 'serve-favicon';
 import serialize from 'serialize-javascript';
 
 import routes from './routes';
 
 import IndexStore from './stores/index';
-import { getDependencies } from './utils/index';
+import {getDependencies} from './utils/index';
 
 import FluxRoot from './flux/root.jsx';
 
@@ -43,7 +43,7 @@ if (!HOT_MODULE_REPLACEMENT) {
 
 app.get('/*', function(req, res) {
   const location = req.url;
-  match({ routes, location }, (error, redirect, renderProps) => {
+  match({routes, location}, (error, redirect, renderProps) => {
     if (error) {
       res.status(500).send(error.message);
 

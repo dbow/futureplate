@@ -1,10 +1,10 @@
 import React from 'react';
-import { render } from 'react-dom';
-import { Router, browserHistory, match } from 'react-router';
+import {render} from 'react-dom';
+import {Router, browserHistory, match} from 'react-router';
 
 import IndexStore from 'src/stores/index';
 import routes from 'src/routes';
-import { getDependencies } from 'src/utils/index';
+import {getDependencies} from 'src/utils/index';
 
 import FluxRoot from 'src/flux/root.jsx';
 
