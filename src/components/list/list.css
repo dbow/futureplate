@@ -1,3 +1,6 @@
+@value common 'src/styles/common.css';
+@value orange-text from common;
+
 .link {
-  composes: orange-text from 'src/styles/common.css';
+  composes: orange-text;
 }

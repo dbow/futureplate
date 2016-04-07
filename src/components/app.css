@@ -1,3 +1,8 @@
+@value common 'src/styles/common.css';
+@value default-font, white, pink-background from common;
+
 .container {
-  composes: default from 'src/styles/common.css';
+  composes: default-font pink-background;
+  color: white;
+  height: 100%;
 }
