@@ -1,5 +1,4 @@
-@value common 'src/styles/common.css';
-@value pink-text, gray-background, padding-standard from common;
+@value pink-text, gray-background, padding-standard from 'common';
 
 .container {
   composes: pink-text gray-background;

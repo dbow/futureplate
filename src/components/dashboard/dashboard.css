@@ -1,5 +1,4 @@
-@value common 'src/styles/common.css';
-@value blue-text from common;
+@value blue-text from 'common';
 
 .container {
   composes: blue-text;

@@ -1,5 +1,4 @@
-@value common 'src/styles/common.css';
-@value default-font, white, pink-background from common;
+@value default-font, white, pink-background from 'common';
 
 .container {
   composes: default-font pink-background;

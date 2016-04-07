@@ -133,6 +133,9 @@ const client = {
 
   resolve: {
     root: RESOLVE_DIR,
+    alias: {
+      common: 'src/styles/common.css',
+    },
   },
 
   module: {
@@ -235,10 +238,19 @@ const server = {
 
   // Only bundle the source code. All other imports are treated as externals.
   // https://webpack.github.io/docs/configuration.html#externals
-  externals: /^[a-z\-0-9]+$/,
+  externals: [
+    /^[a-z\-0-9]+$/,
+    // Ignore the 'common' alias below for shared CSS.
+    {
+      common: false,
+    }
+  ],
 
   resolve: {
     root: RESOLVE_DIR,
+    alias: {
+      common: 'src/styles/common.css',
+    },
   },
 
   output: {
