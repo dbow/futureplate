@@ -1,6 +1,3 @@
-import _ from 'lodash';
-
-
 export default class Cache {
   constructor() {
     this.cache = {};
