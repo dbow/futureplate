@@ -10,14 +10,12 @@ const dependencies = provideHooks({
   fetch: ({store, params}) => getIds(store, params),
 });
 
-class Things extends React.Component {
-  render() {
-    return (
-      <div className={css.div}>
-        {this.props.children}
-      </div>
-    );
-  }
+function Things(props) {
+  return (
+    <div className={css.div}>
+      {props.children}
+    </div>
+  );
 }
 
 export default dependencies(Things);
