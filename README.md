@@ -169,7 +169,7 @@ Compiles the client bundle with hot module replacement and serves it on port 808
 ## TODOs
 
 * Add Testing framework (Jest) and some unit test examples.
-* Use Webpack2 tree-shaking.
+* Use Webpack 2 when it is out of beta for tree-shaking (reference [this](https://medium.com/modus-create-front-end-development/webpack-2-tree-shaking-configuration-9f1de90f3233#.6wcj8n812) and [this](http://www.2ality.com/2015/12/webpack-tree-shaking.html)).
 * Routing
 
     * Add a way to define blocking actions on routes. i.e. actions that must complete *before* the route component is rendered.  
