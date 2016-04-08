@@ -33,3 +33,35 @@ export function getThing(store, params) {
   return promise;
 }
 
+export function getNumber(store) {
+  const cacheKey = 'number';
+  const cacheTtl = 30 * 1000;
+  if (!store.cache.expired(cacheKey, cacheTtl)) {
+    return Promise.resolve();
+  }
+
+  const promise = api.get('number').then((response) => {
+    store.stores.number.setState(response);
+    store.cache.set(cacheKey);
+  });
+
+  return promise;
+}
+
+export function setNumber(store, number) {
+  const cacheKey = 'number';
+  if (store.request.inProgress(cacheKey)) {
+    return;
+  }
+  store.request.start(cacheKey);
+
+  const promise = api.put('number', {number}).then((response) => {
+    store.request.finish(cacheKey);
+    store.stores.number.setState(response);
+    store.cache.set(cacheKey);
+  });
+
+  return promise;
+}
+
+

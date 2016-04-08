@@ -4,8 +4,10 @@ import update from 'react-addons-update';
 
 import IdStore from './ids';
 import ThingStore from './things';
+import NumberStore from './number';
 
 import Cache from './cache';
+import Request from './request';
 
 
 class IndexStore extends EventEmitter {
@@ -15,9 +17,11 @@ class IndexStore extends EventEmitter {
     this.stores = {
       ids: new IdStore(),
       things: new ThingStore(),
+      number: new NumberStore(),
     };
 
     this.cache = new Cache();
+    this.request = new Request();
   }
 
   initialize(data) {

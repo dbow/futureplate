@@ -1,9 +1,10 @@
 import express from 'express';
-
+import bodyParser from 'body-parser';
 
 const NUM_THINGS = 25;
 
 const router = express.Router();
+router.use(bodyParser.json());
 
 router.get('/things', (req, res) => {
   let ids = [];
@@ -21,6 +22,24 @@ router.get('/things/:id', (req, res) => {
   } else {
     res.status(404).send('Not found');
   }
+});
+
+router.get('/number', (req, res) => {
+  const number = Math.round(Math.random() * 100);
+  setTimeout(() => {
+    res.send({number});
+  }, 1000);
+});
+
+router.put('/number', (req, res) => {
+  let {number} = req.body;
+  number = parseInt(number, 10);
+  if (isNaN(number) || typeof number !== 'number') {
+    return res.status(400).send('Not a number');
+  }
+  setTimeout(() => {
+    res.send({number});
+  }, 1000);
 });
 
 

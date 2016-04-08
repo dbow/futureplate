@@ -1,0 +1,17 @@
+@value pink, white from 'common';
+
+.form {
+  margin: 1em 0;
+}
+
+.instructions {
+  font-size: 1.2em;
+  margin-bottom: 0.3em;
+}
+
+.error {
+  color: pink;
+  background-color: white;
+  margin: 0.3em 0;
+  padding: 0.2em;
+}
