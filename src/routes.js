@@ -2,60 +2,28 @@ import React from 'react';
 import {Route, IndexRoute} from 'react-router';
 
 import App from 'src/components/app.jsx';
+import Things from 'src/components/things/things.jsx';
+import List from 'src/components/list/list.jsx';
+import Thing from 'src/components/thing/thing.jsx';
 import Dashboard from 'src/components/dashboard/dashboard.jsx';
+
 
 // polyfill webpack require.ensure
 if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
 
 
 export default (
-  <Route path='/' component={App} getChildRoutes={(location, cb) => {
-    require.ensure([], (require) => {
-      cb(null, [
-        {
-          path: 'about',
-          getComponent(location, cb) {
-            require.ensure([], () => {
-              cb(null, require('src/components/about/about.jsx').default);
-            });
-          }
-        },
-        {
-          path: 'list',
-          getComponent(location, cb) {
-            require.ensure([], () => {
-              cb(null, require('src/components/things/things.jsx').default);
-            });
-          },
-          getChildRoutes(location, cb) {
-            require.ensure([], (require) => {
-              cb(null, [
-                {
-                  path: 'thing/:id',
-                  getComponent(location, cb) {
-                    require.ensure([], () => {
-                      cb(null, require('src/components/thing/thing.jsx').default);
-                    });
-                  },
-                }
-              ]);
-            });
-          },
-          getIndexRoute(location, cb) {
-            require.ensure([], (require) => {
-              cb(null, {
-                getComponent(location, cb) {
-                  require.ensure([], () => {
-                    cb(null, require('src/components/list/list.jsx').default);
-                  });
-                }
-              });
-            });
-          }
-        }
-      ]);
-    });
-  }}>
+  <Route path="/" component={App}>
+    <Route path="about" getComponent={(location, cb) => {
+        require.ensure([], () => {
+          cb(null, require('src/components/about/about.jsx').default);
+        });
+      }}
+    />
+    <Route path="list" component={Things}>
+      <IndexRoute component={List} />
+      <Route path="thing/:id" component={Thing} />
+    </Route>
     <IndexRoute component={Dashboard} />
   </Route>
 );
