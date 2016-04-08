@@ -1,5 +1,6 @@
 # futureplate
 
+
 #### a simple-ish boilerplate for
 
 \+ **[universal](https://medium.com/@mjackson/universal-javascript-4761051b7ae9#.3br8rkdud) [react](https://facebook.github.io/react/)**
@@ -13,6 +14,7 @@
 \+ **[code splitting](https://webpack.github.io/docs/code-splitting.html)**
 
 \+ **[hot module replacement](https://webpack.github.io/docs/hot-module-replacement.html)**
+
 
 ## Goals
 
@@ -71,15 +73,19 @@
 
 `npm install`
 
+
 ### Production
 
-`npm run start`
+`npm run build`
 
-Compiles assets via `npm run build` and then starts the web server in production mode.
-`npm run build` just runs `webpack` to compile both the client and server rendering bundle in production mode.
+Compiles both the client and server rendering bundle in production mode with webpack.
 CSS is extracted into a separate static file (main.css), which is added to the index.jade template on the web server.
 
 *NOTE: `ExtractTextPlugin` is __not__ run in `allChunks` mode by default, so CSS required by routes that are split out into separate chunks will not be extracted. That CSS is added on the client in a `<style>` tag, which might create a FOUC and be undesirable. Webpack is [very flexible](https://webpack.github.io/docs/stylesheets.html#separate-css-bundle) with how it handles stylesheets and a specific strategy should be implemented based on the requirements of the particular site.*
+
+`npm run start`
+
+Starts the web server in production mode.
 
 
 ### Development
@@ -143,6 +149,7 @@ Compiles the client bundle with hot module replacement and serves it on port 808
    * [source-map-support](https://github.com/evanw/node-source-map-support) for source map support in node.
    * [superagent](http://visionmedia.github.io/superagent/) for client and node AJAX.
    * [redial](https://github.com/markdalgleish/redial) to express component data dependencies.
+   * [body-parser](https://github.com/expressjs/body-parser) for server request body parsing (only necessary in the mock-api file).
 * **development**
    * [nodemon](https://github.com/remy/nodemon) to restart web server in dev mode after re-compiling bundles.
    * [rimraf](https://github.com/isaacs/rimraf) to clean the build directory.
