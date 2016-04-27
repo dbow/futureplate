@@ -23,7 +23,7 @@ const PORT = process.env.PORT || 3000;
 app.set('port', PORT);
 
 app.set('views', 'src/views');
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 app.use(favicon(__dirname + '/images/favicon.ico'));
 app.use('/images', express.static(__dirname + '/images'));

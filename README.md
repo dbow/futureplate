@@ -79,7 +79,7 @@
 `npm run build`
 
 Compiles both the client and server rendering bundle in production mode with webpack.
-CSS is extracted into a separate static file (main.css), which is added to the index.jade template on the web server.
+CSS is extracted into a separate static file (main.css), which is added to the index.pug template on the web server.
 
 *NOTE: `ExtractTextPlugin` is __not__ run in `allChunks` mode by default, so CSS required by routes that are split out into separate chunks will not be extracted. That CSS is added on the client in a `<style>` tag, which might create a FOUC and be undesirable. Webpack is [very flexible](https://webpack.github.io/docs/stylesheets.html#separate-css-bundle) with how it handles stylesheets and a specific strategy should be implemented based on the requirements of the particular site.*
 
@@ -141,7 +141,7 @@ Compiles the client bundle with hot module replacement and serves it on port 808
    * [postcss-import](https://github.com/postcss/postcss-import) to inline @import calls in CSS.
    * [style-loader](https://github.com/webpack/style-loader) to add style tags for CSS on demand in the browser.
 * **utility/misc**
-   * [jade](http://jade-lang.com/) for node templates.
+   * [pug](https://github.com/pugjs/pug) for node templates.
    * [lodash](lodash.com) for utility functions.
    * [react-addons-update](https://facebook.github.io/react/docs/update.html) to implement immutable updates in the `Store`.
    * [serialize-javascript](https://github.com/yahoo/serialize-javascript) to serialize store state and pass it safely to the client.

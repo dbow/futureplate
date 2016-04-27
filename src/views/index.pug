@@ -10,7 +10,7 @@ html(lang='en')
     meta(name='viewport', content='width=device-width, initial-scale=1')
 
     unless development
-      link(rel='stylesheet', type='text/css', href='#{base}/static/main.css')
+      link(rel='stylesheet', type='text/css', href=`${base}/static/main.css`)
 
   body
     #app!= content
@@ -18,6 +18,6 @@ html(lang='en')
   script.
     window.data = !{data};
 
-  script(src='#{base}/static/vendor.js', defer)
-  script(src='#{base}/static/main.js', defer)
+  script(src=`${base}/static/vendor.js`, defer)
+  script(src=`${base}/static/main.js`, defer)
 
